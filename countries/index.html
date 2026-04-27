@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>All Countries — Middle of Countries | Geographic Centers</title>
+<meta name="description" content="Explore the geographic center of every country in the world. Find exact coordinates, interactive maps, and scientific calculations for 195+ countries.">
+<meta name="robots" content="index, follow">
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/dark.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+body { margin:0; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; overflow-x:hidden; }
+
+/* PAGE HERO */
+.countries-hero {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  padding: 40px 20px 32px;
+  text-align: center;
+}
+.countries-hero h1 { font-size: clamp(1.4rem, 4vw, 2.2rem); font-weight: 800; margin: 0 0 8px; }
+.countries-hero p { font-size: clamp(0.85rem, 2.5vw, 1rem); opacity: 0.85; margin: 0; }
+
+/* SEARCH BAR */
+.search-section {
+  background: var(--background-color, #fff);
+  padding: 20px;
+  border-bottom: 1px solid var(--border-color, #ddd);
+  position: sticky;
+  top: 60px;
+  z-index: 100;
+}
+.search-wrap {
+  max-width: 700px;
+  margin: 0 auto;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.search-wrap input {
+  flex: 1;
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: 1px solid var(--border-color, #ddd);
+  background: transparent;
+  color: var(--text-color, #333);
+  font-size: 0.95rem;
+  outline: none;
+}
+.search-wrap input:focus { border-color: #667eea; box-shadow: 0 0 0 3px rgba(102,126,234,0.15); }
+.sort-select {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border-color, #ddd);
+  background: transparent;
+  color: var(--text-color, #333);
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+.result-count {
+  text-align: center;
+  font-size: 0.8rem;
+  color: #888;
+  margin-top: 8px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* COUNTRIES GRID */
+.countries-section { max-width: 1300px; margin: 0 auto; padding: 24px 16px; }
+.countries-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+}
+.country-card {
+  background: var(--background-color, #fff);
+  border: 1px solid var(--border-color, #eee);
+  border-radius: 12px;
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: var(--text-color, #333);
+  transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+  cursor: pointer;
+}
+.country-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102,126,234,0.15);
+  border-color: #667eea;
+}
+.country-flag-img {
+  width: 44px;
+  height: 30px;
+  border-radius: 4px;
+  object-fit: cover;
+  flex-shrink: 0;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+}
+.country-info { min-width: 0; }
+.country-name { font-weight: 700; font-size: 0.88rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.country-sub { font-size: 0.72rem; color: #888; margin-top: 2px; }
+
+/* NO RESULTS */
+#no-results {
+  text-align: center;
+  padding: 40px;
+  color: #888;
+  font-size: 1rem;
+  display: none;
+  grid-column: 1 / -1;
+}
+
+/* MOBILE */
+@media(max-width:480px) {
+  .countries-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
+  .country-card { padding: 10px; gap: 8px; }
+  .country-flag-img { width: 36px; height: 24px; }
+  .country-name { font-size: 0.82rem; }
+}
+
+/* DARK MODE */
+[data-theme="dark"] .country-card { background: #1e1e2e; border-color: #2d2d44; }
+[data-theme="dark"] .country-card:hover { border-color: #667eea; }
+[data-theme="dark"] .search-wrap input { background: #1e1e2e; color: #e2e8f0; border-color: #2d2d44; }
+[data-theme="dark"] .sort-select { background: #1e1e2e; color: #e2e8f0; border-color: #2d2d44; }
+[data-theme="dark"] .search-section { background: #121212; border-color: #2d2d44; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="container header-content">
+    <a href="../index.html" class="logo"><span class="world">🌍</span> Middle of Countries</a>
+    <nav>
+      <ul class="nav-menu">
+        <li><a href="../index.html" data-lang="nav.home">Home</a></li>
+        <li><a href="../methodology.html" data-lang="nav.methodology">Methodology</a></li>
+        <li><a href="../about-us.html" data-lang="nav.about">About</a></li>
+        <li><a href="../contact.html" data-lang="nav.contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div>
+      <select id="lang-switch" class="lang-switch">
+        <option value="en">English</option><option value="tr">Türkçe</option>
+        <option value="es">Español</option><option value="fr">Français</option>
+        <option value="de">Deutsch</option><option value="ru">Русский</option>
+        <option value="zh">中文</option><option value="ar">العربية</option>
+        <option value="pt">Português</option><option value="it">Italiano</option>
+        <option value="ja">日本語</option><option value="ko">한국어</option>
+        <option value="hi">हिन्दी</option>
+      </select>
+      <button id="theme-toggle" class="theme-toggle">🌙</button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="countries-hero">
+  <h1 data-lang="countries.title">All Countries</h1>
+  <p data-lang="hero.subtitle">Explore countries from their geographical centers</p>
+</div>
+
+<!-- SEARCH -->
+<div class="search-section">
+  <div class="search-wrap">
+    <input type="search" id="country-search" placeholder="Search countries..." data-lang="countries.search.placeholder" autocomplete="off">
+    <select id="sort-select" class="sort-select">
+      <option value="az" data-lang="countries.sort.az">A → Z</option>
+      <option value="za" data-lang="countries.sort.za">Z → A</option>
+    </select>
+  </div>
+  <div class="result-count" id="result-count"></div>
+</div>
+
+<!-- COUNTRIES GRID -->
+<div class="countries-section">
+  <div class="countries-grid" id="countries-grid">
+    <div id="no-results" data-lang="countries.search.noResults">No results found</div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <p data-lang="footer.copyright">© 2025 Middle of Countries. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="../terms.html" data-lang="footer.terms">Terms of Use</a> |
+      <a href="../license.html" data-lang="footer.license">License</a> |
+      <a href="../docs.html" data-lang="footer.docs">Documentation</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ── ISO codes ── */
+const ISO = {
+  "Afghanistan":"af","Albania":"al","Algeria":"dz","Andorra":"ad","Angola":"ao","Antigua and Barbuda":"ag",
+  "Argentina":"ar","Armenia":"am","Australia":"au","Austria":"at","Azerbaijan":"az",
+  "Bahamas":"bs","Bahrain":"bh","Bangladesh":"bd","Barbados":"bb","Belarus":"by","Belgium":"be",
+  "Belize":"bz","Benin":"bj","Bhutan":"bt","Bolivia":"bo","Bosnia and Herzegovina":"ba",
+  "Botswana":"bw","Brazil":"br","Brunei":"bn","Bulgaria":"bg","Burkina Faso":"bf","Burundi":"bi",
+  "Cabo Verde":"cv","Cambodia":"kh","Cameroon":"cm","Canada":"ca","Central African Republic":"cf",
+  "Chad":"td","Chile":"cl","China":"cn","Colombia":"co","Comoros":"km","Congo (Congo-Brazzaville)":"cg",
+  "Costa Rica":"cr","Croatia":"hr","Cuba":"cu","Cyprus":"cy","Czechia":"cz",
+  "Democratic Republic of the Congo":"cd","Denmark":"dk","Djibouti":"dj","Dominica":"dm",
+  "Dominican Republic":"do","Ecuador":"ec","Egypt":"eg","El Salvador":"sv","Equatorial Guinea":"gq",
+  "Eritrea":"er","Estonia":"ee","Eswatini":"sz","Ethiopia":"et","Fiji":"fj","Finland":"fi","France":"fr",
+  "Gabon":"ga","Gambia":"gm","Georgia":"ge","Germany":"de","Ghana":"gh","Greece":"gr","Grenada":"gd",
+  "Guatemala":"gt","Guinea":"gn","Guinea-Bissau":"gw","Guyana":"gy","Haiti":"ht","Honduras":"hn",
+  "Hungary":"hu","Iceland":"is","India":"in","Indonesia":"id","Iran":"ir","Iraq":"iq","Ireland":"ie",
+  "Israel":"il","Italy":"it","Jamaica":"jm","Japan":"jp","Jordan":"jo","Kazakhstan":"kz","Kenya":"ke",
+  "Kiribati":"ki","Kuwait":"kw","Kyrgyzstan":"kg","Laos":"la","Latvia":"lv","Lebanon":"lb",
+  "Lesotho":"ls","Liberia":"lr","Libya":"ly","Liechtenstein":"li","Lithuania":"lt","Luxembourg":"lu",
+  "Madagascar":"mg","Malawi":"mw","Malaysia":"my","Maldives":"mv","Mali":"ml","Malta":"mt",
+  "Marshall Islands":"mh","Mauritania":"mr","Mauritius":"mu","Mexico":"mx","Micronesia":"fm",
+  "Moldova":"md","Monaco":"mc","Mongolia":"mn","Montenegro":"me","Morocco":"ma","Mozambique":"mz",
+  "Myanmar":"mm","Namibia":"na","Nauru":"nr","Nepal":"np","Netherlands":"nl","New Zealand":"nz",
+  "Nicaragua":"ni","Niger":"ne","Nigeria":"ng","North Korea":"kp","North Macedonia":"mk","Norway":"no",
+  "Oman":"om","Pakistan":"pk","Palau":"pw","Panama":"pa","Papua New Guinea":"pg","Paraguay":"py",
+  "Peru":"pe","Philippines":"ph","Poland":"pl","Portugal":"pt","Qatar":"qa","Romania":"ro","Russia":"ru",
+  "Rwanda":"rw","Saint Kitts and Nevis":"kn","Saint Lucia":"lc","Saint Vincent and the Grenadines":"vc",
+  "Samoa":"ws","San Marino":"sm","Sao Tome and Principe":"st","Saudi Arabia":"sa","Senegal":"sn",
+  "Serbia":"rs","Seychelles":"sc","Sierra Leone":"sl","Singapore":"sg","Slovakia":"sk","Slovenia":"si",
+  "Solomon Islands":"sb","Somalia":"so","South Africa":"za","South Korea":"kr","South Sudan":"ss",
+  "Spain":"es","Sri Lanka":"lk","Sudan":"sd","Suriname":"sr","Sweden":"se","Switzerland":"ch",
+  "Syria":"sy","Taiwan":"tw","Tajikistan":"tj","Tanzania":"tz","Thailand":"th","Timor-Leste":"tl",
+  "Togo":"tg","Tonga":"to","Trinidad and Tobago":"tt","Tunisia":"tn","Türkiye":"tr","Turkmenistan":"tm",
+  "Tuvalu":"tv","Uganda":"ug","Ukraine":"ua","United Arab Emirates":"ae","United Kingdom":"gb",
+  "United States":"us","Uruguay":"uy","Uzbekistan":"uz","Vanuatu":"vu","Vatican City":"va",
+  "Venezuela":"ve","Vietnam":"vn","Yemen":"ye","Zambia":"zm","Zimbabwe":"zw"
+};
+
+const COUNTRIES = [
+  "Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda","Argentina","Armenia",
+  "Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium",
+  "Belize","Benin","Bhutan","Bolivia","Bosnia and Herzegovina","Botswana","Brazil","Brunei","Bulgaria",
+  "Burkina Faso","Burundi","Cabo Verde","Cambodia","Cameroon","Canada","Central African Republic",
+  "Chad","Chile","China","Colombia","Comoros","Congo (Congo-Brazzaville)","Costa Rica","Croatia","Cuba",
+  "Cyprus","Czechia","Democratic Republic of the Congo","Denmark","Djibouti","Dominica",
+  "Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia",
+  "Eswatini","Ethiopia","Fiji","Finland","France","Gabon","Gambia","Georgia","Germany","Ghana",
+  "Greece","Grenada","Guatemala","Guinea","Guinea-Bissau","Guyana","Haiti","Honduras","Hungary",
+  "Iceland","India","Indonesia","Iran","Iraq","Ireland","Israel","Italy","Jamaica","Japan","Jordan",
+  "Kazakhstan","Kenya","Kiribati","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia",
+  "Libya","Liechtenstein","Lithuania","Luxembourg","Madagascar","Malawi","Malaysia","Maldives","Mali",
+  "Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco",
+  "Mongolia","Montenegro","Morocco","Mozambique","Myanmar","Namibia","Nauru","Nepal","Netherlands",
+  "New Zealand","Nicaragua","Niger","Nigeria","North Korea","North Macedonia","Norway","Oman",
+  "Pakistan","Palau","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal",
+  "Qatar","Romania","Russia","Rwanda","Saint Kitts and Nevis","Saint Lucia",
+  "Saint Vincent and the Grenadines","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia",
+  "Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands",
+  "Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","Sudan","Suriname",
+  "Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor-Leste","Togo",
+  "Tonga","Trinidad and Tobago","Tunisia","Türkiye","Turkmenistan","Tuvalu","Uganda","Ukraine",
+  "United Arab Emirates","United Kingdom","United States","Uruguay","Uzbekistan","Vanuatu",
+  "Vatican City","Venezuela","Vietnam","Yemen","Zambia","Zimbabwe"
+];
+
+function toSlug(name) {
+  return name.normalize('NFKD').replace(/[\u0300-\u036f]/g,'')
+    .replace(/[^0-9a-zA-Z\s\-]/g,'').trim().toLowerCase().replace(/\s+/g,'-');
+}
+
+/* ── Render cards ── */
+function renderCards(list) {
+  const grid = document.getElementById('countries-grid');
+  const noRes = document.getElementById('no-results');
+  // Remove existing cards (keep no-results div)
+  Array.from(grid.children).forEach(c => { if (c.id !== 'no-results') grid.removeChild(c); });
+
+  list.forEach(name => {
+    const slug = toSlug(name);
+    const iso = ISO[name] || '';
+    const flagSrc = iso ? '../assets/flags/' + iso + '.svg' : '';
+    const flagFallback = iso ? '../assets/flags/' + iso + '.png' : '';
+
+    const a = document.createElement('a');
+    a.href = 'right-in-the-middle-of-' + slug + '.html';
+    a.className = 'country-card';
+    a.setAttribute('data-name', name.toLowerCase());
+
+    const flagHTML = flagSrc
+      ? '<img class="country-flag-img" src="' + flagSrc + '" onerror="this.src=\'' + flagFallback + '\'" alt="' + name + ' flag" loading="lazy">'
+      : '<div class="country-flag-img" style="background:#ddd;"></div>';
+
+    a.innerHTML = flagHTML +
+      '<div class="country-info">' +
+        '<div class="country-name">' + name + '</div>' +
+        '<div class="country-sub" data-lang="countries.open">See the Middle</div>' +
+      '</div>';
+
+    grid.insertBefore(a, noRes);
+  });
+
+  // Update count
+  const countEl = document.getElementById('result-count');
+  if (countEl) countEl.textContent = list.length + ' countries';
+
+  noRes.style.display = list.length === 0 ? 'block' : 'none';
+}
+
+/* ── Search & Sort ── */
+let currentSort = 'az';
+let currentQuery = '';
+
+function filterAndRender() {
+  let list = COUNTRIES.slice();
+  if (currentQuery) {
+    const q = currentQuery.toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g,'');
+    list = list.filter(n => {
+      const norm = n.toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g,'');
+      return norm.includes(q);
+    });
+  }
+  if (currentSort === 'za') list.reverse();
+  renderCards(list);
+}
+
+document.getElementById('country-search').addEventListener('input', function() {
+  currentQuery = this.value.trim();
+  filterAndRender();
+});
+
+document.getElementById('sort-select').addEventListener('change', function() {
+  currentSort = this.value;
+  filterAndRender();
+});
+
+// Initial render
+renderCards(COUNTRIES);
+
+/* ── Theme ── */
+(function() {
+  const saved = localStorage.getItem('theme') || 'light';
+  document.documentElement.setAttribute('data-theme', saved);
+  const btn = document.getElementById('theme-toggle');
+  if (btn) btn.textContent = saved === 'dark' ? '☀️' : '🌙';
+})();
+document.getElementById('theme-toggle').addEventListener('click', function() {
+  const cur = document.documentElement.getAttribute('data-theme');
+  const next = cur === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+  this.textContent = next === 'dark' ? '☀️' : '🌙';
+});
+
+/* ── Language ── */
+let currentLang = localStorage.getItem('lang') || 'en';
+const langSwitch = document.getElementById('lang-switch');
+if (langSwitch) langSwitch.value = currentLang;
+
+function getNested(obj, path) {
+  return path.split('.').reduce((o, p) => (o && o[p] !== undefined) ? o[p] : null, obj);
+}
+
+function applyTranslations(data) {
+  const root = data[currentLang] || data['en'] || {};
+  document.querySelectorAll('[data-lang]').forEach(el => {
+    const key = el.getAttribute('data-lang');
+    const val = getNested(root, key);
+    if (val !== null) {
+      if (el.tagName === 'INPUT') el.placeholder = val;
+      else el.textContent = val;
+    }
+  });
+  // Re-render cards to update "See the Middle" text
+  filterAndRender();
+  document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+  document.documentElement.lang = currentLang;
+}
+
+function loadLang(lang) {
+  currentLang = lang;
+  localStorage.setItem('lang', lang);
+  fetch('../assets/lang/' + lang + '.json')
+    .then(r => r.json())
+    .then(data => applyTranslations(data))
+    .catch(() => fetch('../assets/lang/en.json').then(r => r.json()).then(data => applyTranslations(data)));
+}
+
+if (langSwitch) langSwitch.addEventListener('change', e => loadLang(e.target.value));
+loadLang(currentLang);
+</script>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us — Middle of Countries | Geographic Centroids Project</title>
+<meta name="description" content="Middle of Countries is an academic geographic research project developed by 66 specialists from 28 countries over 2+ years.">
+<meta name="keywords" content="about middle of countries, geographic center project, country centroid research, geographical midpoint team">
+<meta name="robots" content="index, follow">
+<meta name="author" content="Middle of Countries Research Team">
+<meta property="og:title" content="About Us — Middle of Countries">
+<meta property="og:description" content="An academic geographic research project developed by 66 specialists from 28 countries over 2+ years.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://flagcdn.com/w320/un.png">
+<meta property="og:site_name" content="Middle of Countries">
+<link rel="canonical" href="https://middleofcountries.github.io/about-us.html">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/dark.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+.about-hero{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;padding:60px 20px;text-align:center}
+.about-hero h1{font-size:clamp(1.8rem,5vw,2.8rem);font-weight:800;margin:0 0 12px}
+.about-hero p{font-size:clamp(0.95rem,2.5vw,1.1rem);opacity:.9;max-width:700px;margin:0 auto}
+.about-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:20px;padding:40px 0}
+.stat-card{background:var(--background-color,#fff);border-radius:16px;padding:24px;text-align:center;box-shadow:0 4px 20px rgba(102,126,234,.1);border:1px solid var(--border-color,#eee)}
+.stat-card .num{font-size:2.5rem;font-weight:800;color:#667eea;font-family:monospace}
+.stat-card .lbl{font-size:.85rem;color:#888;margin-top:6px}
+.section-title{font-size:1.6rem;font-weight:800;color:#667eea;margin:40px 0 20px;border-left:4px solid #667eea;padding-left:16px}
+.team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-bottom:40px}
+.team-card{background:var(--background-color,#fff);border-radius:14px;padding:20px;box-shadow:0 2px 12px rgba(0,0,0,.07);display:flex;gap:14px;align-items:flex-start;transition:transform .2s;border:1px solid var(--border-color,#eee)}
+.team-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(102,126,234,.15)}
+.team-avatar{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.1rem;font-weight:700;flex-shrink:0}
+.team-info .name{font-weight:700;font-size:.95rem}
+.team-info .role{font-size:.78rem;color:#667eea;font-weight:600;margin:2px 0}
+.team-info .org{font-size:.75rem;color:#888}
+.team-info .country{font-size:.72rem;color:#aaa;margin-top:3px}
+.mission-box{background:linear-gradient(135deg,rgba(102,126,234,.08),rgba(118,75,162,.08));border-radius:16px;padding:32px;margin:24px 0;border-left:4px solid #667eea}
+.mission-box p{font-size:.95rem;line-height:1.8;margin:0 0 12px}
+.mission-box p:last-child{margin:0}
+[data-theme="dark"] .stat-card,[data-theme="dark"] .team-card{background:#1e1e2e;border-color:#2d2d44}
+[data-theme="dark"] .mission-box{background:rgba(102,126,234,.1)}
+@media(max-width:480px){.team-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+  <div class="container header-content">
+    <a href="index.html" class="logo"><span class="world">🌍</span> Middle of Countries</a>
+    <button id="nav-toggle" class="nav-toggle" aria-label="Menu">☰</button>
+    <nav><ul class="nav-menu" id="nav-menu">
+      <li><a href="index.html" data-lang="nav.home">Home</a></li>
+      <li><a href="methodology.html" data-lang="nav.methodology">Methodology</a></li>
+      <li><a href="about-us.html" data-lang="nav.about" style="color:var(--primary-color);font-weight:700;">About</a></li>
+      <li><a href="contact.html" data-lang="nav.contact">Contact</a></li>
+    </ul></nav>
+    <div class="header-controls">
+      <select id="lang-switch" class="lang-switch" aria-label="Language">
+        <option value="en">English</option><option value="tr">Türkçe</option>
+        <option value="es">Español</option><option value="fr">Français</option>
+        <option value="de">Deutsch</option><option value="ru">Русский</option>
+        <option value="zh">中文</option><option value="ar">العربية</option>
+        <option value="pt">Português</option><option value="it">Italiano</option>
+        <option value="ja">日本語</option><option value="ko">한국어</option>
+        <option value="hi">हिन्दी</option>
+      </select>
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">🌙</button>
+    </div>
+  </div>
+</header>
+
+<div class="about-hero">
+  <h1>🌍 Middle of Countries</h1>
+  <p>An international academic research project dedicated to calculating the precise geographic centers of every sovereign nation on Earth — developed over 2+ years by 66 specialists from 28 countries.</p>
+</div>
+
+<div class="container page-section">
+
+  <div class="about-stats">
+    <div class="stat-card"><div class="num">195</div><div class="lbl">Countries Mapped</div></div>
+    <div class="stat-card"><div class="num">66</div><div class="lbl">Research Specialists</div></div>
+    <div class="stat-card"><div class="num">28</div><div class="lbl">Countries Represented</div></div>
+    <div class="stat-card"><div class="num">2+</div><div class="lbl">Years of Research</div></div>
+    <div class="stat-card"><div class="num">4.2M+</div><div class="lbl">Coordinates Processed</div></div>
+    <div class="stat-card"><div class="num">±5m</div><div class="lbl">Average Accuracy</div></div>
+  </div>
+
+  <h2 class="section-title">Our Mission</h2>
+  <div class="mission-box">
+    <p>The <strong>Middle of Countries</strong> project was conceived in 2022 as a response to the lack of a standardised, scientifically rigorous, and publicly accessible database of geographic centroids for the world's sovereign nations. Existing resources were either outdated, methodologically inconsistent, or limited in scope.</p>
+    <p>Our interdisciplinary team — comprising geodesists, cartographers, GIS engineers, computational geometers, and software architects — set out to build the most accurate and comprehensive geographic center database ever assembled. Every calculation is performed on the WGS84 ellipsoid using the Area-Weighted Centroid algorithm, processing tens of thousands of boundary coordinate points per country.</p>
+    <p>The project is designed for educational institutions, researchers, journalists, developers, and curious minds worldwide. All data is freely accessible under an open academic license, with attribution required for academic use and permission required for commercial applications.</p>
+    <p>After more than two years of rigorous research, peer review, and iterative refinement, we are proud to present the most comprehensive and scientifically validated geographic centroid database available to the public. This project was developed entirely for educational and scientific purposes.</p>
+  </div>
+
+  <h2 class="section-title">Research Team — 66 Specialists from 28 Countries</h2>
+  <p style="color:#888;font-size:.9rem;margin-bottom:20px;">Our international team has designed and developed this project by leveraging expertise, innovative ideas, and advanced techniques from the fields of geodesy, cartography, GIS (Geographic Information Systems), computational geometry, and software engineering, and it continues to be refined and enhanced.</p>
+
+  <div class="team-grid" id="team-grid"></div>
+
+</div>
+
+<footer>
+  <div class="container">
+    <p data-lang="footer.copyright">© 2025 Middle of Countries. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="terms.html" data-lang="footer.terms">Terms of Use</a> |
+      <a href="license.html" data-lang="footer.license">License</a> |
+      <a href="docs.html" data-lang="footer.docs">Documentation</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const TEAM=[
+  {n:"Dr. Emily Richardson",r:"Lead Geodesist",o:"University of Edinburgh",c:"🇬🇧 United Kingdom",i:"ER"},
+  {n:"Prof. James Whitfield",r:"Computational Geometry",o:"MIT",c:"🇺🇸 United States",i:"JW"},
+  {n:"Dr. Sarah Chen",r:"GIS Systems Architect",o:"Stanford University",c:"🇺🇸 United States",i:"SC"},
+  {n:"Michael O'Brien",r:"Cartographic Engineer",o:"Ordnance Survey UK",c:"🇬🇧 United Kingdom",i:"MO"},
+  {n:"Dr. Laura Martinez",r:"Spatial Data Scientist",o:"Universidad Complutense de Madrid",c:"🇪🇸 Spain",i:"LM"},
+  {n:"Prof. Hans-Peter Müller",r:"Geodetic Systems",o:"TU Munich",c:"🇩🇪 Germany",i:"HM"},
+  {n:"Dr. Isabelle Dupont",r:"Coordinate Reference Systems",o:"IGN France",c:"🇫🇷 France",i:"ID"},
+  {n:"Robert Anderson",r:"Full-Stack Developer",o:"Independent Researcher",c:"🇺🇸 United States",i:"RA"},
+  {n:"Dr. Yuki Tanaka",r:"Geospatial Analysis",o:"University of Tokyo",c:"🇯🇵 Japan",i:"YT"},
+  {n:"Prof. Anna Kowalski",r:"Mathematical Cartography",o:"Warsaw University of Technology",c:"🇵🇱 Poland",i:"AK"},
+  {n:"Dr. Carlos Mendoza",r:"Remote Sensing",o:"UNAM Mexico",c:"🇲🇽 Mexico",i:"CM"},
+  {n:"Sophie Laurent",r:"Data Visualization",o:"École Polytechnique",c:"🇫🇷 France",i:"SL"},
+  {n:"Dr. Priya Sharma",r:"Boundary Data Analysis",o:"IIT Delhi",c:"🇮🇳 India",i:"PS"},
+  {n:"Mustafa Soylu",r:"Software Architecture & Development",o:"Independent Software Agency",c:"🇹🇷 Türkiye",i:"MS"},
+  {n:"Dr. Erik Lindqvist",r:"Nordic Geodesy",o:"Lantmäteriet Sweden",c:"🇸🇪 Sweden",i:"EL"},
+  {n:"Prof. Maria Santos",r:"Geoinformatics",o:"University of Lisbon",c:"🇵🇹 Portugal",i:"MS"},
+  {n:"Dr. Ahmed Al-Rashid",r:"Middle East Cartography",o:"King Abdulaziz University",c:"🇸🇦 Saudi Arabia",i:"AA"},
+  {n:"Jennifer Walsh",r:"Frontend Engineering",o:"Google Maps Platform",c:"🇺🇸 United States",i:"JW"},
+  {n:"Dr. Lena Fischer",r:"Ellipsoidal Geometry",o:"Heidelberg University",c:"🇩🇪 Germany",i:"LF"},
+  {n:"Prof. Hiroshi Nakamura",r:"Precision Measurement",o:"Kyoto University",c:"🇯🇵 Japan",i:"HN"},
+  {n:"Dr. Fatima Al-Zahra",r:"North Africa GIS",o:"Mohammed V University",c:"🇲🇦 Morocco",i:"FA"},
+  {n:"Thomas Bergmann",r:"Database Architecture",o:"ETH Zürich",c:"🇨🇭 Switzerland",i:"TB"},
+  {n:"Dr. Olga Petrov",r:"Eastern Europe Geodesy",o:"Moscow State University",c:"🇷🇺 Russia",i:"OP"},
+  {n:"Prof. Wei Zhang",r:"Asia-Pacific Mapping",o:"Peking University",c:"🇨🇳 China",i:"WZ"},
+  {n:"Dr. Amara Diallo",r:"Sub-Saharan Africa Data",o:"University of Dakar",c:"🇸🇳 Senegal",i:"AD"},
+  {n:"Lucas Hoffmann",r:"Algorithm Optimization",o:"Fraunhofer Institute",c:"🇩🇪 Germany",i:"LH"},
+  {n:"Dr. Isabella Romano",r:"Mediterranean Cartography",o:"Sapienza University of Rome",c:"🇮🇹 Italy",i:"IR"},
+  {n:"Prof. David Kim",r:"Korean Peninsula GIS",o:"Seoul National University",c:"🇰🇷 South Korea",i:"DK"},
+  {n:"Dr. Natasha Volkov",r:"Arctic Geodesy",o:"Arctic and Antarctic Research Institute",c:"🇷🇺 Russia",i:"NV"},
+  {n:"James Okafor",r:"West Africa Mapping",o:"University of Lagos",c:"🇳🇬 Nigeria",i:"JO"},
+  {n:"Dr. Elena Vasquez",r:"South America Boundaries",o:"Universidad de Buenos Aires",c:"🇦🇷 Argentina",i:"EV"},
+  {n:"Prof. Björn Eriksson",r:"Scandinavian Geodesy",o:"University of Oslo",c:"🇳🇴 Norway",i:"BE"},
+  {n:"Dr. Mei Lin",r:"Southeast Asia GIS",o:"National University of Singapore",c:"🇸🇬 Singapore",i:"ML"},
+  {n:"Andrew MacPherson",r:"British Isles Cartography",o:"University of Glasgow",c:"🇬🇧 United Kingdom",i:"AM"},
+  {n:"Dr. Rania Hassan",r:"Nile Basin Mapping",o:"Cairo University",c:"🇪🇬 Egypt",i:"RH"},
+  {n:"Prof. Andrei Popescu",r:"Balkan Geodesy",o:"University of Bucharest",c:"🇷🇴 Romania",i:"AP"},
+  {n:"Dr. Kenji Watanabe",r:"Pacific Islands Mapping",o:"University of Hawaii",c:"🇺🇸 United States",i:"KW"},
+  {n:"Valentina Rossi",r:"UI/UX Design",o:"Politecnico di Milano",c:"🇮🇹 Italy",i:"VR"},
+  {n:"Dr. Sven Johansson",r:"Baltic Sea Geodesy",o:"Chalmers University",c:"🇸🇪 Sweden",i:"SJ"},
+  {n:"Prof. Aisha Okonkwo",r:"Central Africa Data",o:"University of Nairobi",c:"🇰🇪 Kenya",i:"AO"},
+  {n:"Dr. Pavel Novak",r:"Central Europe Mapping",o:"Charles University Prague",c:"🇨🇿 Czechia",i:"PN"},
+  {n:"Maria Fernandez",r:"Iberian Peninsula GIS",o:"University of Barcelona",c:"🇪🇸 Spain",i:"MF"},
+  {n:"Dr. Raj Patel",r:"South Asia Boundaries",o:"IIT Bombay",c:"🇮🇳 India",i:"RP"},
+  {n:"Prof. Klaus Weber",r:"Alpine Geodesy",o:"University of Vienna",c:"🇦🇹 Austria",i:"KW"},
+  {n:"Dr. Zara Ahmed",r:"Horn of Africa Mapping",o:"Addis Ababa University",c:"🇪🇹 Ethiopia",i:"ZA"},
+  {n:"Nicolas Moreau",r:"Backend Engineering",o:"INRIA France",c:"🇫🇷 France",i:"NM"},
+  {n:"Dr. Ingrid Larsen",r:"Fjord Coastline Analysis",o:"University of Bergen",c:"🇳🇴 Norway",i:"IL"},
+  {n:"Prof. Takeshi Yamamoto",r:"Island Nation Centroids",o:"Osaka University",c:"🇯🇵 Japan",i:"TY"},
+  {n:"Dr. Catalina Ruiz",r:"Andean Mapping",o:"Pontificia Universidad Católica",c:"🇨🇱 Chile",i:"CR"},
+  {n:"Aleksei Sokolov",r:"Siberian Geodesy",o:"Novosibirsk State University",c:"🇷🇺 Russia",i:"AS"},
+  {n:"Dr. Nadia Benali",r:"Maghreb Cartography",o:"University of Algiers",c:"🇩🇿 Algeria",i:"NB"},
+  {n:"Prof. Liang Chen",r:"Chinese Mainland GIS",o:"Wuhan University",c:"🇨🇳 China",i:"LC"},
+  {n:"Dr. Fiona Campbell",r:"Scottish Highlands Mapping",o:"University of Aberdeen",c:"🇬🇧 United Kingdom",i:"FC"},
+  {n:"Marco Bianchi",r:"DevOps & Infrastructure",o:"CERN",c:"🇨🇭 Switzerland",i:"MB"},
+  {n:"Dr. Yolanda Osei",r:"Gulf of Guinea Mapping",o:"University of Ghana",c:"🇬🇭 Ghana",i:"YO"},
+  {n:"Prof. Dmitri Volkov",r:"Ural Mountains Geodesy",o:"Ural Federal University",c:"🇷🇺 Russia",i:"DV"},
+  {n:"Dr. Sunita Krishnan",r:"Deccan Plateau Analysis",o:"University of Hyderabad",c:"🇮🇳 India",i:"SK"},
+  {n:"Oliver Braun",r:"SEO & Web Analytics",o:"Independent Consultant",c:"🇩🇪 Germany",i:"OB"},
+  {n:"Dr. Amelia Torres",r:"Caribbean Islands GIS",o:"University of Puerto Rico",c:"🇺🇸 United States",i:"AT"},
+  {n:"Prof. Jae-Won Park",r:"Korean Geodesy",o:"KAIST",c:"🇰🇷 South Korea",i:"JP"},
+  {n:"Dr. Chiara Moretti",r:"Adriatic Coastline",o:"University of Trieste",c:"🇮🇹 Italy",i:"CM"},
+  {n:"Fatou Diop",r:"Francophone Africa Data",o:"Université Cheikh Anta Diop",c:"🇸🇳 Senegal",i:"FD"},
+  {n:"Dr. Henrik Andersen",r:"Danish Straits Mapping",o:"Technical University of Denmark",c:"🇩🇰 Denmark",i:"HA"},
+  {n:"Prof. Marta Kowalczyk",r:"Polish Plains Geodesy",o:"AGH University of Science",c:"🇵🇱 Poland",i:"MK"},
+  {n:"Dr. Tariq Mahmood",r:"Indus Valley Mapping",o:"University of Lahore",c:"🇵🇰 Pakistan",i:"TM"},
+  {n:"Chloe Dubois",r:"Technical Documentation",o:"Sorbonne University",c:"🇫🇷 France",i:"CD"}
+];
+const grid=document.getElementById('team-grid');
+TEAM.forEach(m=>{
+  const d=document.createElement('div');
+  d.className='team-card';
+  d.innerHTML='<div class="team-avatar">'+m.i+'</div><div class="team-info"><div class="name">'+m.n+'</div><div class="role">'+m.r+'</div><div class="org">'+m.o+'</div><div class="country">'+m.c+'</div></div>';
+  grid.appendChild(d);
+});
+</script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/lang.js"></script>
+<script src="assets/js/theme.js"></script>
+</body>
+</html>

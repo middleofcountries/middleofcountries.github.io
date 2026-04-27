@@ -1,0 +1,316 @@
+/* CSS Variables for Themes */
+:root {
+  --primary-color: #007bff;
+  --secondary-color: #6c757d;
+  --background-color: #ffffff;
+  --text-color: #333333;
+  --header-bg: rgba(255, 255, 255, 0.9);
+  --border-color: #ddd;
+}
+
+[data-theme="dark"] {
+  --background-color: #121212;
+  --text-color: #ffffff;
+  --header-bg: rgba(18, 18, 18, 0.9);
+  --border-color: #333;
+}
+
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Header */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: var(--header-bg);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--primary-color);
+}
+
+.nav-menu {
+  display: flex;
+  list-style: none;
+}
+
+.nav-menu li {
+  margin-left: 2rem;
+}
+
+.nav-menu a {
+  text-decoration: none;
+  color: var(--text-color);
+  transition: color 0.3s;
+}
+
+.nav-menu a:hover {
+  color: var(--primary-color);
+}
+
+.theme-toggle, .lang-switch {
+  margin-left: 1rem;
+  cursor: pointer;
+}
+
+/* Lang switch — her temada okunabilir */
+.lang-switch {
+  background: var(--card-bg, #fff);
+  color: var(--text-color, #1a1a2e);
+  border: 1px solid var(--border-color, #ddd);
+  border-radius: 8px;
+  padding: 5px 8px;
+  font-size: 0.82rem;
+  -webkit-appearance: auto;
+  appearance: auto;
+}
+.lang-switch option {
+  background: var(--card-bg, #fff);
+  color: var(--text-color, #1a1a2e);
+}
+[data-theme="dark"] .lang-switch {
+  background: #1e1e2e;
+  color: #e2e8f0;
+  border-color: #2d2d44;
+}
+[data-theme="dark"] .lang-switch option {
+  background: #1e1e2e;
+  color: #e2e8f0;
+}
+
+/* Nav toggle (mobile) */
+.nav-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  font-size: 1.3rem;
+  cursor: pointer;
+  margin-right: 0.5rem;
+}
+
+/* When body has .nav-open show nav on mobile */
+body.nav-open .nav-menu {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 768px) {
+  .nav-toggle { display: inline-block; }
+  .nav-menu { display: none; }
+  body.nav-open .nav-menu { display: flex; }
+  .nav-menu li { margin: 0.6rem 0; }
+}
+
+
+
+/* Countries Wrap */
+.countries-wrap {
+  padding: 20px;
+}
+
+.countries-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+.country-card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+  border-radius: 10px;
+  padding: 12px;
+  color: var(--text-color);
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.country-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.country-card a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.country-flag {
+  width: 44px;
+  height: 28px;
+  border-radius: 4px;
+  flex: 0 0 44px;
+  background-size: cover;
+  background-position: center;
+}
+
+.search-btn {
+  border: 1px solid var(--border-color);
+  background: transparent;
+  color: var(--text-color);
+  padding: 8px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.search-btn:hover { background: rgba(0,0,0,0.04); }
+
+/* Footer */
+footer {
+  background: var(--header-bg);
+  padding: 2rem 0;
+  text-align: center;
+  border-top: 1px solid var(--border-color);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .header-content {
+    flex-direction: column;
+  }
+  
+  .nav-menu {
+    margin-top: 1rem;
+  }
+  
+  .nav-menu li {
+    margin-left: 1rem;
+  }
+  
+  #map-container {
+    height: 56vh;
+  }
+}
+
+/* Logo Animation */
+.logo {
+  text-decoration: none;
+  color: inherit;
+}
+
+.world {
+  display: inline-block;
+  animation: rotate 10s linear infinite;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.country-name {
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+/* Footer links */
+.footer-links {
+  margin-top: 10px;
+  font-size: 0.9rem;
+}
+
+.footer-links a {
+  color: var(--text-color);
+  text-decoration: none;
+  margin: 0 5px;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}
+/* Header controls group */
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* Map container — no extra padding causing black gap */
+#map-container {
+  width: 100%;
+  height: clamp(320px, 58vh, 600px);
+  padding: 12px 16px 0;
+  box-sizing: border-box;
+}
+
+#mapdiv {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 30px rgba(2,6,23,0.4);
+}
+
+/* Country grid mobile */
+@media (max-width: 480px) {
+  .countries-grid {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 8px;
+  }
+  .country-card { padding: 8px; }
+  .country-flag { width: 36px; height: 24px; flex: 0 0 36px; }
+  #map-container { height: clamp(260px, 52vw, 380px); padding: 8px 8px 0; }
+}
+
+/* Header mobile */
+@media (max-width: 768px) {
+  .header-content { flex-wrap: wrap; gap: 8px; padding: 0.7rem 0; }
+  .header-controls { order: 3; }
+  nav { order: 2; width: 100%; }
+  .nav-menu { flex-wrap: wrap; gap: 4px; }
+  .nav-menu li { margin: 0; }
+  .nav-menu a { padding: 4px 8px; font-size: 0.85rem; }
+}
+
+/* Dark mode improvements */
+[data-theme="dark"] body { background-color: #121212; }
+[data-theme="dark"] .country-card { background: rgba(255,255,255,0.04); }
+[data-theme="dark"] .country-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.4); }
+[data-theme="dark"] footer { background: rgba(18,18,18,0.95); }
+[data-theme="dark"] .search-btn { color: #fff; }
+[data-theme="dark"] #country-search { color: #fff; }
+[data-theme="dark"] #sort-select { color: #fff; background: #1e1e2e; }
+
+/* Page content sections */
+.page-section {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+.page-section h1 { font-size: clamp(1.4rem, 4vw, 2rem); margin-bottom: 16px; color: var(--primary-color); }
+.page-section h2 { font-size: clamp(1.1rem, 3vw, 1.4rem); margin: 28px 0 12px; }
+.page-section p { margin-bottom: 14px; line-height: 1.75; }
+.page-section ul, .page-section ol { padding-left: 24px; margin-bottom: 14px; }
+.page-section li { margin-bottom: 6px; line-height: 1.7; }

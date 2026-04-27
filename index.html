@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Middle of Countries — Geographic Centers of Every Country | Interactive World Map</title>
+<meta name="description" content="Explore the exact geographic center of every country in the world. Interactive map, 13 languages, scientific calculations using Area-Weighted Centroid on WGS84 ellipsoid.">
+<meta name="keywords" content="geographic center of countries, world map geographic centers, country centroid, middle of countries, geographical midpoint, middle of countries, coğrafi merkez, Ländermittelpunkt">
+<meta name="robots" content="index, follow">
+<meta name="author" content="Middle of Countries">
+<meta property="og:title" content="Middle of Countries — Geographic Centers of Every Country | Interactive World Map">
+<meta property="og:description" content="Explore the exact geographic center of every country in the world. Interactive map, 13 languages, scientific calculations using Area-Weighted Centroid on WGS84 ellipsoid.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://flagcdn.com/w320/un.png">
+<meta property="og:site_name" content="Middle of Countries">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Middle of Countries — Geographic Centers of Every Country | Interactive World Map">
+<meta name="twitter:description" content="Explore the exact geographic center of every country in the world. Interactive map, 13 languages, scientific calculations using Area-Weighted Centroid on WGS84 ellipsoid.">
+<link rel="canonical" href="https://middleofcountries.github.io/">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/dark.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<!-- soylumap local -->
+<script src="assets/soylumap/core.js"></script>
+<script src="assets/soylumap/maps.js"></script>
+<script src="assets/soylumap/animated.js"></script>
+<script src="assets/soylumap/worldLow.js"></script>
+<script src="assets/js/map.js"></script>
+</head>
+<body>
+
+<header>
+  <div class="container header-content">
+    <a href="index.html" class="logo"><span class="world">🌍</span> Middle of Countries</a>
+    <button id="nav-toggle" class="nav-toggle" aria-label="Menu">☰</button>
+    <nav>
+      <ul class="nav-menu" id="nav-menu">
+          <li><a href="index.html" data-lang="nav.home" style="color:var(--primary-color);font-weight:700;">Home</a></li>
+          <li><a href="methodology.html" data-lang="nav.methodology">Methodology</a></li>
+          <li><a href="about-us.html" data-lang="nav.about">About</a></li>
+          <li><a href="contact.html" data-lang="nav.contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="header-controls">
+      <select id="lang-switch" class="lang-switch" aria-label="Language">
+        <option value="en">English</option><option value="tr">Türkçe</option>
+        <option value="es">Español</option><option value="fr">Français</option>
+        <option value="de">Deutsch</option><option value="ru">Русский</option>
+        <option value="zh">中文</option><option value="ar">العربية</option>
+        <option value="pt">Português</option><option value="it">Italiano</option>
+        <option value="ja">日本語</option><option value="ko">한국어</option>
+        <option value="hi">हिन्दी</option>
+      </select>
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">🌙</button>
+    </div>
+  </div>
+</header>
+
+<!-- MAP -->
+<section id="map-container">
+  <div id="mapdiv"></div>
+</section>
+
+<!-- SOCIAL SHARE STRIP — harita ile ülke listesi arasında -->
+<div class="share-strip">
+  <div class="share-strip-inner">
+    <span class="share-strip-label">🌍 Share this map:</span>
+    <button class="sstrip-btn whatsapp" onclick="sstrip_share('whatsapp')"><i class="fab fa-whatsapp"></i> WhatsApp</button>
+    <button class="sstrip-btn twitter"  onclick="sstrip_share('twitter')"><i class="fab fa-x-twitter"></i> X</button>
+    <button class="sstrip-btn facebook" onclick="sstrip_share('facebook')"><i class="fab fa-facebook-f"></i> Facebook</button>
+    <button class="sstrip-btn instagram" onclick="sstrip_share('instagram')"><i class="fab fa-instagram"></i> Instagram</button>
+    <button class="sstrip-btn linkedin" onclick="sstrip_share('linkedin')"><i class="fab fa-linkedin-in"></i> LinkedIn</button>
+    <button class="sstrip-btn telegram" onclick="sstrip_share('telegram')"><i class="fab fa-telegram-plane"></i> Telegram</button>
+    <button class="sstrip-btn reddit"   onclick="sstrip_share('reddit')"><i class="fab fa-reddit-alien"></i> Reddit</button>
+    <button class="sstrip-btn pinterest" onclick="sstrip_share('pinterest')"><i class="fab fa-pinterest-p"></i> Pinterest</button>
+    <button class="sstrip-btn email"    onclick="sstrip_share('email')"><i class="fa fa-envelope"></i> Email</button>
+    <button class="sstrip-btn copy"     onclick="sstrip_share('copy')" id="sstrip-copy-btn"><i class="fa fa-link"></i> Copy Link</button>
+  </div>
+</div>
+
+<style>
+.share-strip {
+  background: var(--card-bg, #fff);
+  border-top: 1px solid var(--border-color, #e5e7eb);
+  border-bottom: 1px solid var(--border-color, #e5e7eb);
+  padding: 10px 0;
+  overflow-x: auto;
+}
+.share-strip-inner {
+  display: flex; align-items: center; gap: 8px;
+  max-width: 1300px; margin: 0 auto; padding: 0 20px;
+  flex-wrap: nowrap; min-width: max-content;
+}
+.share-strip-label {
+  font-size: 0.82rem; font-weight: 700; color: #888;
+  white-space: nowrap; margin-right: 4px;
+}
+.sstrip-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 13px; border-radius: 20px; border: none;
+  cursor: pointer; font-size: 0.78rem; font-weight: 600;
+  white-space: nowrap; color: #fff; transition: opacity 0.2s, transform 0.15s;
+}
+.sstrip-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+.sstrip-btn.whatsapp  { background: #25D366; }
+.sstrip-btn.twitter   { background: #000; }
+.sstrip-btn.facebook  { background: #1877F2; }
+.sstrip-btn.instagram { background: linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); }
+.sstrip-btn.linkedin  { background: #0A66C2; }
+.sstrip-btn.telegram  { background: #26A5E4; }
+.sstrip-btn.reddit    { background: #FF4500; }
+.sstrip-btn.pinterest { background: #E60023; }
+.sstrip-btn.email     { background: #6c757d; }
+.sstrip-btn.copy      { background: #667eea; }
+</style>
+
+<script>
+function sstrip_share(platform) {
+  var url = encodeURIComponent(window.location.href);
+  var text = encodeURIComponent('Explore the geographic centers of every country in the world! 🌍 Middle of Countries');
+  var map = {
+    whatsapp:  'https://wa.me/?text=' + text + '%20' + url,
+    twitter:   'https://twitter.com/intent/tweet?text=' + text + '&url=' + url,
+    facebook:  'https://www.facebook.com/sharer/sharer.php?u=' + url,
+    linkedin:  'https://www.linkedin.com/sharing/share-offsite/?url=' + url,
+    telegram:  'https://t.me/share/url?url=' + url + '&text=' + text,
+    reddit:    'https://reddit.com/submit?url=' + url + '&title=' + text,
+    pinterest: 'https://pinterest.com/pin/create/button/?url=' + url + '&description=' + text,
+    email:     'mailto:?subject=Right%20in%20the%20Middle%20%F0%9F%8C%8D&body=' + text + '%20' + url
+  };
+  if (platform === 'copy') {
+    navigator.clipboard.writeText(decodeURIComponent(url)).then(function() {
+      var btn = document.getElementById('sstrip-copy-btn');
+      btn.innerHTML = '<i class="fa fa-check"></i> Copied!';
+      setTimeout(function(){ btn.innerHTML = '<i class="fa fa-link"></i> Copy Link'; }, 2000);
+    });
+  } else if (platform === 'instagram') {
+    navigator.clipboard.writeText(decodeURIComponent(url)).then(function() { alert('Link copied! Paste it in your Instagram story or bio 📸'); });
+  } else {
+    window.open(map[platform], '_blank');
+  }
+}
+</script>
+
+<!-- Countries list -->
+<section class="countries-wrap">
+  <div class="country-controls container">
+    <div style="display:flex;gap:10px;align-items:center;margin-bottom:12px;">
+      <input id="country-search" type="search" placeholder="Search countries..." data-lang="countries.search.placeholder" style="flex:1;padding:8px;border-radius:8px;border:1px solid var(--border-color);background:transparent;color:var(--text-color);">      <button id="country-search-btn" class="search-btn" aria-label="Search" data-lang="countries.search.button">🔍</button>      <select id="sort-select" style="padding:8px;border-radius:8px;border:1px solid var(--border-color);background:transparent;color:var(--text-color);">
+          <option value="az" data-lang="countries.sort.az">A → Z</option>
+          <option value="za" data-lang="countries.sort.za">Z → A</option>
+      </select>
+    </div>
+  </div>
+  <div class="countries-grid" id="countries-grid"></div>
+</section>
+
+<footer>
+  <div class="container">
+    <p data-lang="footer.copyright">© 2025 Middle of Countries. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="terms.html" data-lang="footer.terms">Terms of Use</a> |
+      <a href="license.html" data-lang="footer.license">License</a> |
+      <a href="docs.html" data-lang="footer.docs">Documentation</a>
+    </div>
+  </div>
+</footer>
+
+<!-- MAP + Country List Scripts -->
+<script>
+
+/* ---------------------- ISO COUNTRY CODES ---------------------- */
+const ISO = {
+  "Afghanistan":"af","Albania":"al","Algeria":"dz","Andorra":"ad","Angola":"ao","Antigua and Barbuda":"ag",
+  "Argentina":"ar","Armenia":"am","Australia":"au","Austria":"at","Azerbaijan":"az",
+  "Bahamas":"bs","Bahrain":"bh","Bangladesh":"bd","Barbados":"bb","Belarus":"by","Belgium":"be",
+  "Belize":"bz","Benin":"bj","Bhutan":"bt","Bolivia":"bo","Bosnia and Herzegovina":"ba",
+  "Botswana":"bw","Brazil":"br","Brunei":"bn","Bulgaria":"bg","Burkina Faso":"bf","Burundi":"bi",
+  "Cabo Verde":"cv","Cambodia":"kh","Cameroon":"cm","Canada":"ca","Central African Republic":"cf",
+  "Chad":"td","Chile":"cl","China":"cn","Colombia":"co","Comoros":"km","Congo (Congo-Brazzaville)":"cg",
+  "Costa Rica":"cr","Croatia":"hr","Cuba":"cu","Cyprus":"cy","Czechia":"cz",
+  "Democratic Republic of the Congo":"cd",
+  "Denmark":"dk","Djibouti":"dj","Dominica":"dm","Dominican Republic":"do",
+  "Ecuador":"ec","Egypt":"eg","El Salvador":"sv","Equatorial Guinea":"gq","Eritrea":"er",
+  "Estonia":"ee","Eswatini":"sz","Ethiopia":"et","Fiji":"fj","Finland":"fi","France":"fr",
+  "Gabon":"ga","Gambia":"gm","Georgia":"ge","Germany":"de","Ghana":"gh","Greece":"gr",
+  "Grenada":"gd","Guatemala":"gt","Guinea":"gn","Guinea-Bissau":"gw","Guyana":"gy","Haiti":"ht",
+  "Honduras":"hn","Hungary":"hu","Iceland":"is","India":"in","Indonesia":"id","Iran":"ir",
+  "Iraq":"iq","Ireland":"ie","Israel":"il","Italy":"it","Jamaica":"jm","Japan":"jp",
+  "Jordan":"jo","Kazakhstan":"kz","Kenya":"ke","Kiribati":"ki","Kuwait":"kw","Kyrgyzstan":"kg",
+  "Laos":"la","Latvia":"lv","Lebanon":"lb","Lesotho":"ls","Liberia":"lr","Libya":"ly",
+  "Liechtenstein":"li","Lithuania":"lt","Luxembourg":"lu","Madagascar":"mg","Malawi":"mw",
+  "Malaysia":"my","Maldives":"mv","Mali":"ml","Malta":"mt","Marshall Islands":"mh","Mauritania":"mr",
+  "Mauritius":"mu","Mexico":"mx","Micronesia":"fm","Moldova":"md","Monaco":"mc","Mongolia":"mn",
+  "Montenegro":"me","Morocco":"ma","Mozambique":"mz","Myanmar":"mm","Namibia":"na","Nauru":"nr",
+  "Nepal":"np","Netherlands":"nl","New Zealand":"nz","Nicaragua":"ni","Niger":"ne","Nigeria":"ng",
+  "North Korea":"kp","North Macedonia":"mk","Norway":"no","Oman":"om","Pakistan":"pk",
+  "Palau":"pw","Panama":"pa","Papua New Guinea":"pg","Paraguay":"py","Peru":"pe",
+  "Philippines":"ph","Poland":"pl","Portugal":"pt","Qatar":"qa","Romania":"ro","Russia":"ru",
+  "Rwanda":"rw","Saint Kitts and Nevis":"kn","Saint Lucia":"lc",
+  "Saint Vincent and the Grenadines":"vc","Samoa":"ws","San Marino":"sm",
+  "Sao Tome and Principe":"st","Saudi Arabia":"sa","Senegal":"sn","Serbia":"rs","Seychelles":"sc",
+  "Sierra Leone":"sl","Singapore":"sg","Slovakia":"sk","Slovenia":"si","Solomon Islands":"sb",
+  "Somalia":"so","South Africa":"za","South Korea":"kr","South Sudan":"ss","Spain":"es",
+  "Sri Lanka":"lk","Sudan":"sd","Suriname":"sr","Sweden":"se","Switzerland":"ch","Syria":"sy",
+  "Taiwan":"tw","Tajikistan":"tj","Tanzania":"tz","Thailand":"th","Timor-Leste":"tl","Togo":"tg",
+  "Tonga":"to","Trinidad and Tobago":"tt","Tunisia":"tn","Türkiye":"tr","Turkmenistan":"tm",
+  "Tuvalu":"tv","Uganda":"ug","Ukraine":"ua","United Arab Emirates":"ae","United Kingdom":"gb",
+  "United States":"us","Uruguay":"uy","Uzbekistan":"uz","Vanuatu":"vu","Vatican City":"va",
+  "Venezuela":"ve","Vietnam":"vn","Yemen":"ye","Zambia":"zm","Zimbabwe":"zw"
+};
+
+/* ---------------------- Helper Slug ---------------------- */
+function toSlug(name){
+  return name.normalize('NFKD')
+             .replace(/[\u0300-\u036f]/g,'')
+             .replace(/[^0-9a-zA-Z\s\-]/g,'')
+             .trim().toLowerCase().replace(/\s+/g,'-');
+}
+
+/* ---------------------- Countries List ---------------------- */
+const COUNTRIES = [
+  "Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda","Argentina","Armenia",
+  "Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium",
+  "Belize","Benin","Bhutan","Bolivia","Bosnia and Herzegovina","Botswana","Brazil","Brunei","Bulgaria",
+  "Burkina Faso","Burundi","Cabo Verde","Cambodia","Cameroon","Canada","Central African Republic",
+  "Chad","Chile","China","Colombia","Comoros","Congo (Congo-Brazzaville)","Costa Rica","Croatia","Cuba",
+  "Cyprus","Czechia","Democratic Republic of the Congo","Denmark","Djibouti","Dominica",
+  "Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Eswatini",
+  "Ethiopia","Fiji","Finland","France","Gabon","Gambia","Georgia","Germany","Ghana","Greece","Grenada",
+  "Guatemala","Guinea","Guinea-Bissau","Guyana","Haiti","Honduras","Hungary","Iceland","India",
+  "Indonesia","Iran","Iraq","Ireland","Israel","Italy","Jamaica","Japan","Jordan","Kazakhstan","Kenya",
+  "Kiribati","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein",
+  "Lithuania","Luxembourg","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands",
+  "Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Morocco",
+  "Mozambique","Myanmar","Namibia","Nauru","Nepal","Netherlands","New Zealand","Nicaragua","Niger",
+  "Nigeria","North Korea","North Macedonia","Norway","Oman","Pakistan","Palau","Panama",
+  "Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Qatar","Romania","Russia",
+  "Rwanda","Saint Kitts and Nevis","Saint Lucia","Saint Vincent and the Grenadines","Samoa",
+  "San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone",
+  "Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea",
+  "South Sudan","Spain","Sri Lanka","Sudan","Suriname","Sweden","Switzerland","Syria","Taiwan",
+  "Tajikistan","Tanzania","Thailand","Timor-Leste","Togo","Tonga","Trinidad and Tobago","Tunisia",
+  "Türkiye","Turkmenistan","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom",
+  "United States","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Yemen","Zambia",
+  "Zimbabwe"
+];
+
+/* ---------------------- Render Country Cards — map.js handles this ---------------------- */
+// Cards are rendered by assets/js/map.js to avoid duplication
+
+/* ---------------------- Map Init ---------------------- */
+am4core.ready(function() {
+  am4core.useTheme(am4themes_animated);
+
+  var chart = am4core.create("mapdiv", am4maps.MapChart);
+  chart.geodata = am4geodata_worldLow;
+  chart.projection = new am4maps.projections.Miller();
+  chart.maxZoomLevel = 32;
+
+  chart.zoomControl = new am4maps.ZoomControl();
+  chart.zoomControl.valign = "bottom";
+  chart.zoomControl.align = "right";
+
+  var polygonSeries = chart.series.push(new am4maps.MapPolygonSeries());
+  polygonSeries.useGeodata = true;
+  polygonSeries.exclude = ["AQ"];
+
+  var polygonTemplate = polygonSeries.mapPolygons.template;
+  polygonTemplate.fill = am4core.color("#3aa0ff");
+  polygonTemplate.fillOpacity = 0.9;
+  polygonTemplate.stroke = am4core.color("#ffffff");
+  polygonTemplate.strokeOpacity = 0.6;
+  polygonTemplate.tooltipText = "{name}";
+
+  var hs = polygonTemplate.states.create("hover");
+  hs.properties.fill = am4core.color("#0b64b2");
+
+  polygonTemplate.events.on("hit", function(ev) {
+    var name = ev.target.dataItem.dataContext.name;
+    var slug = toSlug(name);
+    // relative path to countries folder next to this index file
+    window.location.href = "countries/right-in-the-middle-of-" + slug + ".html";
+  });
+
+  chart.responsive.enabled = true;
+
+}); // end am4core.ready
+
+</script>
+
+<script src="assets/js/main.js"></script>
+<script src="assets/js/map.js"></script>
+<script src="assets/js/lang.js"></script>
+<script src="assets/js/theme.js"></script>
+</body>
+</html>

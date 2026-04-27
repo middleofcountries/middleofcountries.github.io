@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Middle of Countries</title>
+<meta name="description" content="Contact the Middle of Countries research team. Questions, feedback, collaboration, or data licensing inquiries.">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Contact — Middle of Countries">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://middleofcountries.github.io/contact.html">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/dark.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+.contact-hero{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;padding:50px 20px;text-align:center}
+.contact-hero h1{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:800;margin:0 0 10px}
+.contact-hero p{opacity:.9;max-width:600px;margin:0 auto}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin:40px 0}
+@media(max-width:768px){.contact-grid{grid-template-columns:1fr}}
+.contact-card{background:var(--background-color,#fff);border-radius:16px;padding:28px;box-shadow:0 4px 20px rgba(102,126,234,.1);border:1px solid var(--border-color,#eee)}
+.contact-card h3{color:#667eea;font-size:1.1rem;margin:0 0 12px;display:flex;align-items:center;gap:8px}
+.contact-card p{font-size:.9rem;line-height:1.7;color:var(--text-color,#333);margin:0 0 12px}
+.contact-card a{color:#667eea;text-decoration:none;font-weight:600}
+.contact-card a:hover{text-decoration:underline}
+.email-box{background:linear-gradient(135deg,rgba(102,126,234,.1),rgba(118,75,162,.1));border-radius:12px;padding:16px;text-align:center;margin-top:12px}
+.email-box .email{font-size:1.1rem;font-weight:700;color:#667eea;font-family:monospace}
+[data-theme="dark"] .contact-card{background:#1e1e2e;border-color:#2d2d44}
+[data-theme="dark"] .email-box{background:rgba(102,126,234,.15)}
+</style>
+</head>
+<body>
+<header>
+  <div class="container header-content">
+    <a href="index.html" class="logo"><span class="world">🌍</span> Middle of Countries</a>
+    <button id="nav-toggle" class="nav-toggle" aria-label="Menu">☰</button>
+    <nav><ul class="nav-menu" id="nav-menu">
+      <li><a href="index.html" data-lang="nav.home">Home</a></li>
+      <li><a href="methodology.html" data-lang="nav.methodology">Methodology</a></li>
+      <li><a href="about-us.html" data-lang="nav.about">About</a></li>
+      <li><a href="contact.html" data-lang="nav.contact" style="color:var(--primary-color);font-weight:700;">Contact</a></li>
+    </ul></nav>
+    <div class="header-controls">
+      <select id="lang-switch" class="lang-switch" aria-label="Language">
+        <option value="en">English</option><option value="tr">Türkçe</option>
+        <option value="es">Español</option><option value="fr">Français</option>
+        <option value="de">Deutsch</option><option value="ru">Русский</option>
+        <option value="zh">中文</option><option value="ar">العربية</option>
+        <option value="pt">Português</option><option value="it">Italiano</option>
+        <option value="ja">日本語</option><option value="ko">한국어</option>
+        <option value="hi">हिन्दी</option>
+      </select>
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">🌙</button>
+    </div>
+  </div>
+</header>
+
+<div class="contact-hero">
+  <h1>📬 Contact Us</h1>
+  <p>We welcome questions, feedback, collaboration proposals, and data licensing inquiries from researchers, educators, and developers worldwide.</p>
+</div>
+
+<div class="container page-section">
+  <div class="contact-grid">
+
+    <div class="contact-card">
+      <h3><i class="fa fa-envelope"></i> General Inquiries</h3>
+      <p>For general questions about the project, data accuracy, methodology, or to report an error in our calculations, please reach out via email.</p>
+      <div class="email-box">
+        <div class="email">middleofcountries@gmail.com</div>
+        <a href="mailto:middleofcountries@gmail.com" style="display:inline-block;margin-top:10px;background:#667eea;color:#fff;padding:8px 20px;border-radius:8px;font-size:.85rem;text-decoration:none;">Send Email</a>
+      </div>
+    </div>
+
+    <div class="contact-card">
+      <h3><i class="fa fa-handshake"></i> Research Collaboration</h3>
+      <p>Are you a researcher, academic institution, or GIS professional interested in collaborating? We are always open to partnerships that advance geographic science.</p>
+      <p>Please include your institution, area of expertise, and a brief description of your proposed collaboration in your email.</p>
+      <div class="email-box">
+        <div class="email">middleofcountries@gmail.com</div>
+      </div>
+    </div>
+
+    <div class="contact-card">
+      <h3><i class="fa fa-building"></i> Commercial Licensing</h3>
+      <p>Our geographic centroid data is freely available for educational and non-commercial use. For commercial applications, a licensing agreement is required.</p>
+      <p>Please contact us with details about your intended use case, expected data volume, and commercial context.</p>
+      <div class="email-box">
+        <div class="email">middleofcountries@gmail.com</div>
+      </div>
+    </div>
+
+    <div class="contact-card">
+      <h3><i class="fa fa-bug"></i> Data Corrections</h3>
+      <p>If you believe a geographic center coordinate is inaccurate, please provide the country name, the coordinates you believe are correct, and your source reference.</p>
+      <p>All correction requests are reviewed by our geodesy team within 5–10 business days.</p>
+      <div class="email-box">
+        <div class="email">middleofcountries@gmail.com</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="background:var(--background-color,#fff);border-radius:16px;padding:28px;box-shadow:0 4px 20px rgba(102,126,234,.1);border:1px solid var(--border-color,#eee);margin-bottom:40px;">
+    <h3 style="color:#667eea;margin:0 0 12px;">📍 Project Information</h3>
+    <p style="font-size:.9rem;line-height:1.7;margin:0 0 8px;"><strong>Project:</strong> Middle of Countries — Geographic Centroids Database</p>
+    <p style="font-size:.9rem;line-height:1.7;margin:0 0 8px;"><strong>Email:</strong> <a href="mailto:middleofcountries@gmail.com" style="color:#667eea;">middleofcountries@gmail.com</a></p>
+    <p style="font-size:.9rem;line-height:1.7;margin:0 0 8px;"><strong>Website:</strong> <a href="https://middleofcountries.github.io" style="color:#667eea;">middleofcountries.github.io</a></p>
+    <p style="font-size:.9rem;line-height:1.7;margin:0;"><strong>Response Time:</strong> We aim to respond to all inquiries within 3–5 business days.</p>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <p data-lang="footer.copyright">© 2025 Middle of Countries. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="terms.html" data-lang="footer.terms">Terms of Use</a> |
+      <a href="license.html" data-lang="footer.license">License</a> |
+      <a href="docs.html" data-lang="footer.docs">Documentation</a>
+    </div>
+  </div>
+</footer>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/lang.js"></script>
+<script src="assets/js/theme.js"></script>
+</body>
+</html>

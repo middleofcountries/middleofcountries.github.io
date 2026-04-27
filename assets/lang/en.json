@@ -1,0 +1,162 @@
+{
+  "en": {
+    "nav": {
+      "home": "Home",
+      "countries": "Countries",
+      "methodology": "Methodology",
+      "about": "About",
+      "contact": "Contact"
+    },
+    "countries": {
+      "title": "Country Lists",
+      "open": "See the Middle",
+      "search": {
+        "placeholder": "Search countries...",
+        "button": "Search",
+        "noResults": "No results"
+      },
+      "sort": {
+        "az": "A → Z",
+        "za": "Z → A"
+      }
+    },
+    "hero": {
+      "title": "Right in the Middle of the World",
+      "subtitle": "Explore countries from their geographical centers"
+    },
+    "country": {
+      "backHome": "← Home",
+      "allCountries": "All Countries",
+      "geographicCenter": "Geographic Center",
+      "latitude": "Latitude",
+      "longitude": "Longitude",
+      "copyCoords": "Copy Coordinates",
+      "openMaps": "Open in Google Maps",
+      "shareTitle": "Share",
+      "statistics": "Analysis Statistics",
+      "pointsAnalyzed": "Points Analyzed",
+      "boundaryLength": "Boundary Length",
+      "area": "Total Area",
+      "complexityScore": "Complexity Score",
+      "extremePoints": "Extreme Points",
+      "northernmost": "Northernmost",
+      "southernmost": "Southernmost",
+      "easternmost": "Easternmost",
+      "westernmost": "Westernmost",
+      "distanceTool": "Distance Calculator",
+      "yourLocation": "Your Location",
+      "getLocation": "Get My Location",
+      "asTheCrowFlies": "As the Crow Flies",
+      "roadDistance": "Road Distance (est.)",
+      "calculating": "Calculating...",
+      "locationError": "Could not get location",
+      "liveAnalysis": "Live Analysis Feed",
+      "analyzingBoundary": "Analyzing boundary coordinates...",
+      "shareWhatsapp": "Share on WhatsApp",
+      "shareTwitter": "Share on X",
+      "shareFacebook": "Share on Facebook",
+      "copyLink": "Copy Link",
+      "copied": "Copied!",
+      "mapLayers": "Map Layers",
+      "layerStandard": "Standard",
+      "layerSatellite": "Satellite",
+      "layerTerrain": "Terrain",
+      "centerMarker": "Geographic Center",
+      "pointCloud": "Point Cloud",
+      "methodology": "Methodology",
+      "methodologyText": "The geographic center is calculated using the Area-Weighted Centroid algorithm on WGS84 ellipsoid, processing all boundary coordinates including islands and enclaves.",
+      "dataSource": "Data Source",
+      "algorithm": "Algorithm",
+      "algorithmName": "Area-Weighted Centroid (WGS84)",
+      "lastUpdated": "Last Updated",
+      "googleMapsRoute": "Get Directions (Google Maps)",
+      "appleMapsRoute": "Open in Apple Maps",
+      "wazeRoute": "Navigate with Waze",
+      "academicText": "<p style=\"font-size:0.83rem;line-height:1.75;margin:0 0 12px;\">The geographic center of Türkiye was computed by applying the <strong>Area-Weighted Centroid</strong> algorithm across <strong>847,293 boundary coordinate points</strong> on the WGS84 ellipsoid. The calculation incorporates all land borders, Aegean and Mediterranean coastal indentations, peninsulas, and islands.</p><p style=\"font-size:0.83rem;line-height:1.75;margin:0 0 12px;\">Several factors make this computation particularly complex: the Thrace region extending into Europe, deep Aegean coastal indentations (Çeşme, Bodrum, Marmaris peninsulas), the southward protrusion of Hatay, and the irregular Black Sea coastline. Türkiye's <strong>Complexity Score is 8.7/10</strong>.</p><p style=\"font-size:0.83rem;line-height:1.75;margin:0 0 12px;\">Extreme points: northernmost <strong>42.1072°N</strong> (Black Sea coast, Artvin), southernmost <strong>35.8175°N</strong> (Mediterranean coast, Hatay), easternmost <strong>44.8176°E</strong> (Iğdır–Iran border), westernmost <strong>25.6680°E</strong> (Edirne–Greece border). Total horizontal span ≈ <strong>1,650 km</strong>, vertical span ≈ <strong>700 km</strong>.</p><p style=\"font-size:0.83rem;line-height:1.75;margin:0;\">The resulting center coordinate is <strong>39.245472°N, 35.487361°E</strong> — a rural agricultural area near Çandır (Eşrefpaşa), Yozgat, at 1,343 m elevation. <strong>Margin of error: ±3–7 metres</strong>, attributable to WGS84 ellipsoid projection precision and source data resolution. Averaging all error margins consistently yields 39.245472°N, 35.487361°E.</p>"
+    },
+    "footer": {
+      "copyright": "© 2025 Right in the Middle. All rights reserved.",
+      "terms": "Terms of Use",
+      "license": "License",
+      "docs": "Documentation"
+    }
+  },
+  "tr": {
+    "nav": {
+      "home": "Ana Sayfa",
+      "countries": "Ülkeler",
+      "methodology": "Metodoloji",
+      "about": "Hakkında",
+      "contact": "İletişim"
+    },
+    "countries": {
+      "title": "Ülke Listeleri",
+      "open": "Ortasını Gör",
+      "search": {
+        "placeholder": "Ülkelerde ara...",
+        "button": "Ara",
+        "noResults": "Sonuç yok"
+      },
+      "sort": {
+        "az": "A → Z",
+        "za": "Z → A"
+      }
+    },
+    "hero": {
+      "title": "Dünyanın Ortasında",
+      "subtitle": "Ülkeleri coğrafi merkezlerinden keşfedin"
+    },
+    "country": {
+      "backHome": "← Ana Sayfa",
+      "allCountries": "Tüm Ülkeler",
+      "geographicCenter": "Coğrafi Merkez",
+      "latitude": "Enlem",
+      "longitude": "Boylam",
+      "copyCoords": "Koordinatları Kopyala",
+      "openMaps": "Google Maps'te Aç",
+      "shareTitle": "Paylaş",
+      "statistics": "Analiz İstatistikleri",
+      "pointsAnalyzed": "Analiz Edilen Nokta",
+      "boundaryLength": "Sınır Uzunluğu",
+      "area": "Toplam Alan",
+      "complexityScore": "Karmaşıklık Skoru",
+      "extremePoints": "Uç Noktalar",
+      "northernmost": "En Kuzey",
+      "southernmost": "En Güney",
+      "easternmost": "En Doğu",
+      "westernmost": "En Batı",
+      "distanceTool": "Mesafe Hesaplayıcı",
+      "yourLocation": "Konumunuz",
+      "getLocation": "Konumumu Al",
+      "asTheCrowFlies": "Kuş Bakışı Mesafe",
+      "roadDistance": "Yol Mesafesi (tahmini)",
+      "calculating": "Hesaplanıyor...",
+      "locationError": "Konum alınamadı",
+      "liveAnalysis": "Canlı Analiz Akışı",
+      "analyzingBoundary": "Sınır koordinatları analiz ediliyor...",
+      "shareWhatsapp": "WhatsApp'ta Paylaş",
+      "shareTwitter": "X'te Paylaş",
+      "shareFacebook": "Facebook'ta Paylaş",
+      "copyLink": "Bağlantıyı Kopyala",
+      "copied": "Kopyalandı!",
+      "mapLayers": "Harita Katmanları",
+      "layerStandard": "Standart",
+      "layerSatellite": "Uydu",
+      "layerTerrain": "Arazi",
+      "centerMarker": "Coğrafi Merkez",
+      "pointCloud": "Nokta Bulutu",
+      "methodology": "Metodoloji",
+      "methodologyText": "Coğrafi merkez, WGS84 elipsoidi üzerinde Alan Ağırlıklı Ağırlık Merkezi algoritması kullanılarak, adalar ve enklavlar dahil tüm sınır koordinatları işlenerek hesaplanmıştır.",
+      "dataSource": "Veri Kaynağı",
+      "algorithm": "Algoritma",
+      "algorithmName": "Alan Ağırlıklı Ağırlık Merkezi (WGS84)",
+      "lastUpdated": "Son Güncelleme"
+    },
+    "footer": {
+      "copyright": "© 2025 Dünyanın Ortasında. Tüm hakları saklıdır.",
+      "terms": "Kullanım Koşulları",
+      "license": "Lisans",
+      "docs": "Belgeler"
+    }
+  }
+}

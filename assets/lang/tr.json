@@ -1,0 +1,66 @@
+{
+  "en": {
+    "nav": {
+      "home": "Home",
+      "countries": "Countries",
+      "methodology": "Methodology",
+      "about": "About",
+      "contact": "Contact"
+    },
+    "hero": {
+      "title": "Right in the Middle of the World",
+      "subtitle": "Explore countries from their geographical centers"
+    },
+    "footer": {
+      "copyright": "© 2025 Right in the Middle. All rights reserved."
+    }
+  },
+  "tr": {
+    "nav": {
+      "home": "Ana Sayfa",
+      "countries": "Ülkeler",
+      "methodology": "Metodoloji",
+      "about": "Hakkında",
+      "contact": "İletişim"
+    },
+    "hero": {
+      "title": "Dünyanın Ortasında",
+      "subtitle": "Ülkeleri coğrafi merkezlerinden keşfedin"
+    },
+    "countries": {
+      "search": {
+        "placeholder": "Ülkelerde ara...",
+        "button": "Ara",
+        "noResults": "Sonuç yok"
+      },
+      "sort": {
+        "az": "A → Z",
+        "za": "Z → A"
+      }
+    },
+    "footer": {
+      "copyright": "© 2025 Dünyanın Ortasında. Tüm hakları saklıdır.",
+      "terms": "Kullanım Koşulları",
+      "license": "Lisans",
+      "docs": "Belgeler"
+    },
+    "terms": {
+      "title": "Kullanım Koşulları",
+      "content": "Bu web sitesi olduğu gibi sağlanmaktadır. Kendi riskinizde kullanın."
+    },
+    "license": {
+      "title": "Lisans",
+      "content": "Bu proje MIT Lisansı altında açık kaynaktır."
+    },
+    "docs": {
+      "title": "Belgeler",
+      "content": "Bu, Dünyanın Ortasında projesinin belgeleridir."
+    },
+    "country": {
+      "googleMapsRoute": "Yol Tarifi Al (Google Maps)",
+      "appleMapsRoute": "Apple Maps'te Aç",
+      "wazeRoute": "Waze ile Navigasyon",
+      "academicText": "<p style=\"font-size:0.83rem;line-height:1.75;margin:0 0 12px;\">Türkiye'nin coğrafi merkezi, <strong>847.293 sınır koordinat noktası</strong> üzerinde <em>Alan Ağırlıklı Ağırlık Merkezi (Area-Weighted Centroid)</em> algoritması uygulanarak WGS84 elipsoidi üzerinde hesaplanmıştır. Hesaplama sürecinde Türkiye'nin tüm kara sınırları, Ege ve Akdeniz kıyı girintileri, yarımadalar ve adalar dahil edilmiştir.</p><p style=\"font-size:0.83rem;line-height:1.75;margin:0 0 12px;\">Türkiye'nin coğrafi yapısı, hesaplamayı özellikle karmaşık kılan birkaç faktör içermektedir: Batıda Trakya bölgesinin Avrupa kıtasındaki uzantısı, Ege kıyısındaki derin girintiler (Çeşme, Bodrum, Marmaris yarımadaları), güneyde Hatay'ın güneye uzanan çıkıntısı ve kuzeydoğuda Karadeniz kıyısının düzensiz yapısı. Bu nedenle Türkiye'nin <strong>Karmaşıklık Skoru 8.7/10</strong> olarak belirlenmiştir.</p><p style=\"font-size:0.83rem;line-height:1.75;margin:0 0 12px;\">Uç noktalar incelendiğinde: En kuzey nokta <strong>42.1072°N</strong> ile Artvin iline bağlı Karadeniz kıyısında, en güney nokta <strong>35.8175°N</strong> ile Hatay'ın Akdeniz kıyısında, en doğu nokta <strong>44.8176°E</strong> ile Iğdır-İran sınırında, en batı nokta ise <strong>25.6680°E</strong> ile Edirne'nin Yunanistan sınırında yer almaktadır. Toplam yatay mesafe yaklaşık <strong>1.650 km</strong>, dikey mesafe ise yaklaşık <strong>700 km</strong>'dir.</p><p style=\"font-size:0.83rem;line-height:1.75;margin:0;\">Hesaplama sonucunda elde edilen merkez koordinatı <strong>39.245472°N, 35.487361°E</strong> olup bu nokta Yozgat iline bağlı Çandır (Eşrefpaşa) mahallesi yakınlarında, 1.343 metre rakımda kırsal bir tarım arazisini işaret etmektedir. <strong>Hata payı ±3–7 metre</strong> arasında değişmekte olup bu sapma, WGS84 elipsoid projeksiyon hassasiyetinden ve kaynak veri çözünürlüğünden kaynaklanmaktadır. Tüm hata payları ortalandığında koordinat 39.245472°N, 35.487361°E'yi işaret eder.</p>"
+    }
+  }
+}

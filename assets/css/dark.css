@@ -1,0 +1,4 @@
+/* Dark Theme Overrides */
+[data-theme="dark"] #mapdiv {
+  background-color: #121212;
+}
