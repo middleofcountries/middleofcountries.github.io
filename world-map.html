@@ -374,19 +374,19 @@ fetch('assets/js/countries_coordinates.json')
     });
     window._leafletMap = map;
 
-    // OpenStreetMap — free, no API key
-    const tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    // OpenStreetMap — free, no API key, no account needed
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       subdomains: 'abc',
       maxZoom: 19
     }).addTo(map);
 
-    // Dark mode: invert tiles via CSS filter
-    if (isDark) {
-      const style = document.createElement('style');
-      style.textContent = '.leaflet-tile { filter: invert(1) hue-rotate(180deg) brightness(0.85) contrast(0.9); }';
-      document.head.appendChild(style);
-    }
+    // Dark mode: invert OSM tiles with CSS filter
+    const tileStyle = document.createElement('style');
+    tileStyle.textContent = isDark
+      ? '.leaflet-tile-pane { filter: invert(1) hue-rotate(180deg) brightness(0.85) contrast(0.9); }'
+      : '';
+    document.head.appendChild(tileStyle);
 
     // Custom pin icon
     const pinIcon = L.divIcon({
