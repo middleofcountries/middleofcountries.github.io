@@ -518,7 +518,7 @@ const tileLayers = {
 
 const map = L.map('map', {
   center: [44.966247, -103.771556],
-  zoom: 3,
+  zoom: 4,
   layers: [tileLayers.standard],
   zoomControl: true
 });
@@ -618,67 +618,119 @@ function printPage() {
 }
 
 // Pulsing center marker
-// Center marker — L.circleMarker for pixel-perfect coordinate accuracy
-const centerMarker = L.circleMarker([COUNTRY.lat, COUNTRY.lng], {
-  radius: 10,
-  color: '#667eea',
-  fillColor: '#667eea',
-  fillOpacity: 0.9,
-  weight: 3
+// ===== USA — ALL 4 OFFICIAL CENTER MARKERS =====
+// Sources: USGS Geographic Centers publication, NGS data sheets, NOAA geodesy
+
+/* ── 1. ALL 50 STATES — our WGS84 result = Belle Fourche, SD area ──────── */
+// NGS official: 44°58'02"N 103°46'18"W  (~12 mi east of SD/WY/MT corner)
+// Public monument: Belle Fourche, SD  44.9672°N 103.7715°W
+L.circleMarker([44.966247, -103.771556], {
+  radius: 11, color: '#667eea', fillColor: '#667eea', fillOpacity: 0.95, weight: 3
 })
   .addTo(map)
-  .bindPopup('<b>&#128205; Geographic Center of United States</b><br>' +
-    '<span style="font-family:monospace;color:#667eea;">' +
-    COUNTRY.lat + '&#176;N, ' + COUNTRY.lng + '&#176;E</span><br>' +
-    '<small>Area-Weighted Centroid &#183; WGS84</small>')
+  .bindPopup(
+    '<b style="color:#667eea;">&#128205; All 50 States — Our Result</b><br>' +
+    '<span style="font-family:monospace;font-size:0.85rem;color:#667eea;">44.966247°N, 103.771556°W</span><br>' +
+    '<small><b>~20 mi north of Belle Fourche, South Dakota</b></small><br>' +
+    '<small style="color:#888;">Method: Area-Weighted Centroid · WGS84 ellipsoid<br>' +
+    'Source: Our calculation (35,981 boundary points)<br>' +
+    'Matches NGS post-1959 estimate (Alaska + Hawaii included)</small>'
+  )
   .openPopup();
-// ===== USA 3 OFFICIAL CENTER MARKERS =====
+
 (function() {
-  // Contiguous 48 states center - Lebanon, Kansas
+
+  /* ── 2. CONTIGUOUS 48 STATES — Lebanon, Kansas ─────────────────────────── */
+  // Source: U.S. Coast & Geodetic Survey, 1918
+  // Official coords: 39°50'N 98°35'W  =  39.8333°N 98.5833°W
+  // Monument: ~2.6 mi NW of Lebanon, Smith County, KS
   L.circleMarker([39.833333, -98.583333], {
-    radius: 9,
-    color: '#2f9e44',
-    fillColor: '#2f9e44',
-    fillOpacity: 0.9,
-    weight: 2.5
+    radius: 10, color: '#2f9e44', fillColor: '#2f9e44', fillOpacity: 0.95, weight: 2.5
   })
     .addTo(map)
     .bindPopup(
-      '<b style="color:#2f9e44;">&#x1F7E2; Center of Contiguous 48 States</b><br>' +
-      '<span style="font-family:monospace;color:#2f9e44;">39.833333&#176;N, 98.583333&#176;W</span><br>' +
-      '<small><b>Lebanon, Kansas</b></small><br>' +
-      '<small style="color:#888;">Official NGS marker for the lower 48 states</small>'
+      '<b style="color:#2f9e44;">&#x1F7E2; Contiguous 48 States</b><br>' +
+      '<span style="font-family:monospace;font-size:0.85rem;color:#2f9e44;">39.8333°N, 98.5833°W</span><br>' +
+      '<small><b>~2.6 mi NW of Lebanon, Smith County, Kansas</b></small><br>' +
+      '<small style="color:#888;">Method: Physical balance point (cardboard cut-out)<br>' +
+      'Source: U.S. Coast &amp; Geodetic Survey, 1918<br>' +
+      'Does NOT include Alaska or Hawaii</small>'
     );
 
-  // Alaska center - Denali Borough
-  L.circleMarker([64.571813, -152.730081], {
-    radius: 9,
-    color: '#e8590c',
-    fillColor: '#e8590c',
-    fillOpacity: 0.9,
-    weight: 2.5
+  /* ── 3. ALASKA ONLY ─────────────────────────────────────────────────────── */
+  // Source: USGS Geographic Centers publication
+  // Official: 63°50'N 152°00'W  =  63.8333°N 152.0000°W
+  // "60 miles northwest of Mount McKinley" — Denali National Park area
+  // Uncertainty stated by NOAA: ±15–20 miles
+  L.circleMarker([63.833333, -152.000000], {
+    radius: 10, color: '#e8590c', fillColor: '#e8590c', fillOpacity: 0.95, weight: 2.5
   })
     .addTo(map)
     .bindPopup(
       '<b style="color:#e8590c;">&#x1F7E0; Geographic Center of Alaska</b><br>' +
-      '<span style="font-family:monospace;color:#e8590c;">64.571813&#176;N, 152.730081&#176;W</span><br>' +
-      '<small><b>Denali Borough, Alaska</b></small><br>' +
-      '<small style="color:#888;">Center of Alaska state territory</small>'
+      '<span style="font-family:monospace;font-size:0.85rem;color:#e8590c;">63.8333°N, 152.0000°W</span><br>' +
+      '<small><b>~60 miles NW of Denali (Mt. McKinley)</b><br>' +
+      'Denali Borough, Alaska</small><br>' +
+      '<small style="color:#888;">Source: USGS Geographic Centers publication<br>' +
+      'Uncertainty: ±15–20 miles (stated by NOAA/NGS)</small>'
     );
 
-  // Legend
+  /* ── 4. HAWAII ONLY ─────────────────────────────────────────────────────── */
+  // Source: USGS — "20°15'N, 156°20'W, off Maui Island"
+  // Official: 20.2500°N 156.3333°W
+  L.circleMarker([20.250000, -156.333333], {
+    radius: 10, color: '#ae3ec9', fillColor: '#ae3ec9', fillOpacity: 0.95, weight: 2.5
+  })
+    .addTo(map)
+    .bindPopup(
+      '<b style="color:#ae3ec9;">&#x1F7E3; Geographic Center of Hawaii</b><br>' +
+      '<span style="font-family:monospace;font-size:0.85rem;color:#ae3ec9;">20.2500°N, 156.3333°W</span><br>' +
+      '<small><b>Off the coast of Maui Island, Hawaii</b></small><br>' +
+      '<small style="color:#888;">Source: USGS Geographic Centers publication<br>' +
+      'Located in the Pacific Ocean between Maui and Lānaʻi</small>'
+    );
+
+  /* ── MAP LEGEND ─────────────────────────────────────────────────────────── */
   var usaLegend = L.control({position: 'bottomleft'});
   usaLegend.onAdd = function() {
     var div = L.DomUtil.create('div', '');
-    div.style.cssText = 'background:var(--card-bg,#fff);padding:8px 12px;border-radius:10px;font-size:0.72rem;box-shadow:0 2px 8px rgba(0,0,0,0.15);line-height:2;max-width:240px;';
-    div.innerHTML =
-      '<div style="font-weight:700;margin-bottom:2px;font-size:0.74rem;">USA Geographic Centers</div>' +
-      '<div style="display:flex;align-items:center;gap:6px;"><div style="width:10px;height:10px;border-radius:50%;background:#667eea;flex-shrink:0;"></div><span>All 50 States &#8212; Belle Fourche, SD</span></div>' +
-      '<div style="display:flex;align-items:center;gap:6px;"><div style="width:10px;height:10px;border-radius:50%;background:#2f9e44;flex-shrink:0;"></div><span>Contiguous 48 States &#8212; Lebanon, KS</span></div>' +
-      '<div style="display:flex;align-items:center;gap:6px;"><div style="width:10px;height:10px;border-radius:50%;background:#e8590c;flex-shrink:0;"></div><span>Alaska Center &#8212; Denali Borough</span></div>';
+    div.style.cssText = [
+      'background:var(--card-bg,#fff)',
+      'padding:10px 14px',
+      'border-radius:10px',
+      'font-size:0.72rem',
+      'box-shadow:0 2px 12px rgba(0,0,0,0.18)',
+      'line-height:1.9',
+      'max-width:270px',
+      'border:1px solid rgba(0,0,0,0.08)'
+    ].join(';');
+    div.innerHTML = [
+      '<div style="font-weight:800;font-size:0.76rem;margin-bottom:6px;border-bottom:1px solid rgba(0,0,0,0.08);padding-bottom:5px;">🇺🇸 USA — Geographic Centers</div>',
+      '<div style="display:flex;align-items:flex-start;gap:7px;margin-bottom:3px;">',
+        '<div style="width:11px;height:11px;border-radius:50%;background:#667eea;flex-shrink:0;margin-top:2px;"></div>',
+        '<span><b>All 50 States</b> — ~Belle Fourche, SD<br><span style="opacity:0.65;">44.966°N 103.772°W · Our result</span></span>',
+      '</div>',
+      '<div style="display:flex;align-items:flex-start;gap:7px;margin-bottom:3px;">',
+        '<div style="width:11px;height:11px;border-radius:50%;background:#2f9e44;flex-shrink:0;margin-top:2px;"></div>',
+        '<span><b>Contiguous 48 States</b> — Lebanon, KS<br><span style="opacity:0.65;">39.833°N 98.583°W · NGS 1918</span></span>',
+      '</div>',
+      '<div style="display:flex;align-items:flex-start;gap:7px;margin-bottom:3px;">',
+        '<div style="width:11px;height:11px;border-radius:50%;background:#e8590c;flex-shrink:0;margin-top:2px;"></div>',
+        '<span><b>Alaska only</b> — NW of Denali<br><span style="opacity:0.65;">63.833°N 152.000°W · USGS</span></span>',
+      '</div>',
+      '<div style="display:flex;align-items:flex-start;gap:7px;">',
+        '<div style="width:11px;height:11px;border-radius:50%;background:#ae3ec9;flex-shrink:0;margin-top:2px;"></div>',
+        '<span><b>Hawaii only</b> — off Maui<br><span style="opacity:0.65;">20.250°N 156.333°W · USGS</span></span>',
+      '</div>'
+    ].join('');
     return div;
   };
   usaLegend.addTo(map);
+
+  /* ── Set map view to show all markers ───────────────────────────────────── */
+  // Zoom to cover contiguous US + show all 4 markers context
+  map.setView([44.966247, -103.771556], 3);
+
 })();
 
 
