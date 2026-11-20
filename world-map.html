@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>World Map — Geographic Centers of Every Country | Middle of Countries</title>
+<meta name="description" content="Interactive world map showing the exact geographic center of every country. Click any pin to explore. Available in English, Turkish, German, Spanish and Portuguese.">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="World Map — Geographic Centers | Middle of Countries">
+<meta property="og:description" content="Click any country's center pin to explore its geographic middle point. 195 countries mapped.">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://middleofcountries.github.io/world-map.html">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/dark.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<!-- Leaflet -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+  #map-wrap {
+    width: 100%;
+    height: calc(100vh - 64px);
+    position: relative;
+  }
+  #leaflet-map {
+    width: 100%;
+    height: 100%;
+  }
+  /* Language bar */
+  #lang-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: var(--header-bg);
+    border-bottom: 1px solid var(--border-color);
+    flex-wrap: wrap;
+  }
+  #lang-bar span { font-size: 0.85rem; color: var(--secondary-color); }
+  .lang-btn {
+    padding: 4px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--border-color);
+    background: transparent;
+    color: var(--text-color);
+    cursor: pointer;
+    font-size: 0.82rem;
+    transition: background 0.2s, color 0.2s;
+  }
+  .lang-btn.active, .lang-btn:hover {
+    background: var(--primary-color);
+    color: #fff;
+    border-color: var(--primary-color);
+  }
+  /* Popup */
+  .leaflet-popup-content-wrapper {
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.18);
+  }
+  .map-popup {
+    text-align: center;
+    min-width: 160px;
+  }
+  .map-popup .pop-flag {
+    width: 48px;
+    height: 32px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 6px;
+    border: 1px solid #ddd;
+  }
+  .map-popup .pop-name {
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 2px;
+  }
+  .map-popup .pop-coords {
+    font-size: 0.78rem;
+    color: #666;
+    margin-bottom: 8px;
+  }
+  .map-popup .pop-btn {
+    display: inline-block;
+    padding: 6px 16px;
+    background: #007bff;
+    color: #fff;
+    border-radius: 20px;
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 600;
+    transition: background 0.2s;
+  }
+  .map-popup .pop-btn:hover { background: #0056b3; }
+  /* Search box over map */
+  #map-search-wrap {
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    display: flex;
+    gap: 0;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+    border-radius: 24px;
+    overflow: hidden;
+    background: #fff;
+    width: min(360px, 90vw);
+  }
+  #map-search {
+    border: none;
+    outline: none;
+    padding: 10px 16px;
+    font-size: 0.9rem;
+    flex: 1;
+    background: transparent;
+    color: #333;
+  }
+  #map-search-btn {
+    border: none;
+    background: #007bff;
+    color: #fff;
+    padding: 10px 16px;
+    cursor: pointer;
+    font-size: 0.9rem;
+  }
+  #map-search-btn:hover { background: #0056b3; }
+  /* Search dropdown */
+  #map-search-results {
+    position: absolute;
+    top: 48px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1001;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    width: min(360px, 90vw);
+    max-height: 240px;
+    overflow-y: auto;
+    display: none;
+  }
+  .sr-item {
+    padding: 9px 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.88rem;
+    color: #333;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .sr-item:hover { background: #f0f6ff; }
+  .sr-item img { width: 28px; height: 18px; object-fit: cover; border-radius: 2px; border: 1px solid #ddd; }
+  /* Info pill */
+  #map-info-pill {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    background: rgba(0,0,0,0.65);
+    color: #fff;
+    padding: 6px 18px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    pointer-events: none;
+  }
+  /* Dark mode adjustments */
+  [data-theme="dark"] #map-search-wrap,
+  [data-theme="dark"] #map-search-results { background: #1e1e1e; }
+  [data-theme="dark"] #map-search { color: #fff; }
+  [data-theme="dark"] .sr-item { color: #eee; border-bottom-color: #333; }
+  [data-theme="dark"] .sr-item:hover { background: #2a2a2a; }
+  [data-theme="dark"] .leaflet-popup-content-wrapper { background: #1e1e1e; color: #eee; }
+  [data-theme="dark"] .map-popup .pop-coords { color: #aaa; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container header-content">
+    <a href="index.html" class="logo"><span class="world">🌍</span> Middle of Countries</a>
+    <button id="nav-toggle" class="nav-toggle" aria-label="Menu">☰</button>
+    <nav>
+      <ul class="nav-menu" id="nav-menu">
+        <li><a href="index.html" data-lang="nav.home">Home</a></li>
+        <li><a href="world-map.html" data-lang="nav.map" style="color:var(--primary-color);font-weight:700;">World Map</a></li>
+        <li><a href="methodology.html" data-lang="nav.methodology">Methodology</a></li>
+        <li><a href="about-us.html" data-lang="nav.about">About</a></li>
+        <li><a href="contact.html" data-lang="nav.contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="header-controls">
+      <select id="lang-switch" class="lang-switch" aria-label="Language">
+        <option value="en">English</option>
+        <option value="tr">Türkçe</option>
+        <option value="de">Deutsch</option>
+        <option value="es">Español</option>
+        <option value="pt">Português</option>
+      </select>
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">🌙</button>
+    </div>
+  </div>
+</header>
+
+<div id="map-wrap">
+  <!-- Search -->
+  <div id="map-search-wrap">
+    <input id="map-search" type="text" placeholder="Search country…" autocomplete="off"/>
+    <button id="map-search-btn"><i class="fa fa-search"></i></button>
+  </div>
+  <div id="map-search-results"></div>
+
+  <!-- Map -->
+  <div id="leaflet-map"></div>
+
+  <!-- Info pill -->
+  <div id="map-info-pill">195 countries — click any pin to explore</div>
+</div>
+
+<script src="assets/js/theme.js"></script>
+<script>
+/* ============================================================
+   TRANSLATIONS (inline — 5 languages)
+============================================================ */
+const T = {
+  en: {
+    searchPlaceholder: "Search country…",
+    openPage: "Open page",
+    infoPill: "195 countries — click any pin to explore",
+    centerOf: "Geographic center of",
+    coords: "Coordinates"
+  },
+  tr: {
+    searchPlaceholder: "Ülke ara…",
+    openPage: "Sayfayı aç",
+    infoPill: "195 ülke — bir pine tıkla ve keşfet",
+    centerOf: "Coğrafi merkezi",
+    coords: "Koordinatlar"
+  },
+  de: {
+    searchPlaceholder: "Land suchen…",
+    openPage: "Seite öffnen",
+    infoPill: "195 Länder — Pin anklicken zum Erkunden",
+    centerOf: "Geografischer Mittelpunkt von",
+    coords: "Koordinaten"
+  },
+  es: {
+    searchPlaceholder: "Buscar país…",
+    openPage: "Abrir página",
+    infoPill: "195 países — haz clic en un pin para explorar",
+    centerOf: "Centro geográfico de",
+    coords: "Coordenadas"
+  },
+  pt: {
+    searchPlaceholder: "Buscar país…",
+    openPage: "Abrir página",
+    infoPill: "195 países — clique num pin para explorar",
+    centerOf: "Centro geográfico de",
+    coords: "Coordenadas"
+  }
+};
+
+/* ============================================================
+   ISO mapping for flags
+============================================================ */
+const ISO = {
+  "Afghanistan":"af","Albania":"al","Algeria":"dz","Andorra":"ad","Angola":"ao",
+  "Antigua and Barbuda":"ag","Argentina":"ar","Armenia":"am","Australia":"au","Austria":"at",
+  "Azerbaijan":"az","Bahamas":"bs","Bahrain":"bh","Bangladesh":"bd","Barbados":"bb",
+  "Belarus":"by","Belgium":"be","Belize":"bz","Benin":"bj","Bhutan":"bt","Bolivia":"bo",
+  "Bosnia and Herzegovina":"ba","Botswana":"bw","Brazil":"br","Brunei":"bn","Bulgaria":"bg",
+  "Burkina Faso":"bf","Burundi":"bi","Cabo Verde":"cv","Cambodia":"kh","Cameroon":"cm",
+  "Canada":"ca","Central African Republic":"cf","Chad":"td","Chile":"cl","China":"cn",
+  "Colombia":"co","Comoros":"km","Congo (Congo-Brazzaville)":"cg","Costa Rica":"cr",
+  "Croatia":"hr","Cuba":"cu","Cyprus":"cy","Czechia":"cz",
+  "Democratic Republic of the Congo":"cd","Denmark":"dk","Djibouti":"dj","Dominica":"dm",
+  "Dominican Republic":"do","Ecuador":"ec","Egypt":"eg","El Salvador":"sv",
+  "Equatorial Guinea":"gq","Eritrea":"er","Estonia":"ee","Eswatini":"sz","Ethiopia":"et",
+  "Fiji":"fj","Finland":"fi","France":"fr","Gabon":"ga","Gambia":"gm","Georgia":"ge",
+  "Germany":"de","Ghana":"gh","Greece":"gr","Grenada":"gd","Guatemala":"gt","Guinea":"gn",
+  "Guinea-Bissau":"gw","Guyana":"gy","Haiti":"ht","Honduras":"hn","Hungary":"hu",
+  "Iceland":"is","India":"in","Indonesia":"id","Iran":"ir","Iraq":"iq","Ireland":"ie",
+  "Israel":"il","Italy":"it","Jamaica":"jm","Japan":"jp","Jordan":"jo","Kazakhstan":"kz",
+  "Kenya":"ke","Kiribati":"ki","Kuwait":"kw","Kyrgyzstan":"kg","Laos":"la","Latvia":"lv",
+  "Lebanon":"lb","Lesotho":"ls","Liberia":"lr","Libya":"ly","Liechtenstein":"li",
+  "Lithuania":"lt","Luxembourg":"lu","Madagascar":"mg","Malawi":"mw","Malaysia":"my",
+  "Maldives":"mv","Mali":"ml","Malta":"mt","Marshall Islands":"mh","Mauritania":"mr",
+  "Mauritius":"mu","Mexico":"mx","Micronesia":"fm","Moldova":"md","Monaco":"mc",
+  "Mongolia":"mn","Montenegro":"me","Morocco":"ma","Mozambique":"mz","Myanmar":"mm",
+  "Namibia":"na","Nauru":"nr","Nepal":"np","Netherlands":"nl","New Zealand":"nz",
+  "Nicaragua":"ni","Niger":"ne","Nigeria":"ng","North Korea":"kp","North Macedonia":"mk",
+  "Norway":"no","Oman":"om","Pakistan":"pk","Palau":"pw","Panama":"pa",
+  "Papua New Guinea":"pg","Paraguay":"py","Peru":"pe","Philippines":"ph","Poland":"pl",
+  "Portugal":"pt","Qatar":"qa","Romania":"ro","Russia":"ru","Rwanda":"rw",
+  "Saint Kitts and Nevis":"kn","Saint Lucia":"lc","Saint Vincent and the Grenadines":"vc",
+  "Samoa":"ws","San Marino":"sm","Sao Tome and Principe":"st","Saudi Arabia":"sa",
+  "Senegal":"sn","Serbia":"rs","Seychelles":"sc","Sierra Leone":"sl","Singapore":"sg",
+  "Slovakia":"sk","Slovenia":"si","Solomon Islands":"sb","Somalia":"so","South Africa":"za",
+  "South Korea":"kr","South Sudan":"ss","Spain":"es","Sri Lanka":"lk","Sudan":"sd",
+  "Suriname":"sr","Sweden":"se","Switzerland":"ch","Syria":"sy","Taiwan":"tw",
+  "Tajikistan":"tj","Tanzania":"tz","Thailand":"th","Timor-Leste":"tl","Togo":"tg",
+  "Tonga":"to","Trinidad and Tobago":"tt","Tunisia":"tn","Türkiye":"tr",
+  "Turkmenistan":"tm","Tuvalu":"tv","Uganda":"ug","Ukraine":"ua",
+  "United Arab Emirates":"ae","United Kingdom":"gb","United States":"us","Uruguay":"uy",
+  "Uzbekistan":"uz","Vanuatu":"vu","Vatican City":"va","Venezuela":"ve","Vietnam":"vn",
+  "Yemen":"ye","Zambia":"zm","Zimbabwe":"zw"
+};
+
+/* ============================================================
+   LANGUAGE SWITCH
+============================================================ */
+let lang = localStorage.getItem('lang') || 'en';
+if (!T[lang]) lang = 'en';
+
+function applyLang(l) {
+  lang = l;
+  localStorage.setItem('lang', l);
+  const t = T[l] || T.en;
+  document.getElementById('map-search').placeholder = t.searchPlaceholder;
+  document.getElementById('map-info-pill').textContent = t.infoPill;
+  document.documentElement.setAttribute('lang', l);
+  // update header nav via data-lang if main.js is not loaded
+  const sel = document.getElementById('lang-switch');
+  if (sel) sel.value = l;
+  // re-open any open popup with updated text (close & reopen)
+  if (window._leafletMap) window._leafletMap.closePopup();
+}
+
+document.getElementById('lang-switch').addEventListener('change', function() {
+  applyLang(this.value);
+});
+
+/* ============================================================
+   THEME
+============================================================ */
+(function(){
+  const saved = localStorage.getItem('theme') || 'light';
+  document.documentElement.setAttribute('data-theme', saved);
+  const btn = document.getElementById('theme-toggle');
+  if (btn) btn.textContent = saved === 'dark' ? '☀️' : '🌙';
+  if (btn) btn.addEventListener('click', function() {
+    const cur = document.documentElement.getAttribute('data-theme');
+    const next = cur === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+    btn.textContent = next === 'dark' ? '☀️' : '🌙';
+  });
+})();
+
+/* ============================================================
+   MOBILE NAV
+============================================================ */
+document.getElementById('nav-toggle').addEventListener('click', function() {
+  document.getElementById('nav-menu').classList.toggle('open');
+});
+
+/* ============================================================
+   LEAFLET MAP + PINS
+============================================================ */
+fetch('assets/js/countries_coordinates.json')
+  .then(r => r.json())
+  .then(function(countries) {
+
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    const tileUrl = isDark
+      ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
+      : 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
+
+    const map = L.map('leaflet-map', {
+      center: [20, 10],
+      zoom: 2,
+      minZoom: 2,
+      maxZoom: 10,
+      zoomControl: true,
+      worldCopyJump: false
+    });
+    window._leafletMap = map;
+
+    L.tileLayer(tileUrl, {
+      attribution: '© <a href="https://carto.com/">CARTO</a> © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      subdomains: 'abcd',
+      maxZoom: 19
+    }).addTo(map);
+
+    // Custom pin icon
+    const pinIcon = L.divIcon({
+      className: '',
+      html: '<div style="width:10px;height:10px;border-radius:50%;background:#007bff;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,0.4);cursor:pointer;"></div>',
+      iconSize: [10, 10],
+      iconAnchor: [5, 5],
+      popupAnchor: [0, -8]
+    });
+
+    // Store markers for search
+    const markers = [];
+
+    countries.forEach(function(c) {
+      const iso = ISO[c.name] || '';
+      const flagUrl = iso ? `assets/flags/${iso}.svg` : '';
+      const flagImg = flagUrl
+        ? `<img class="pop-flag" src="${flagUrl}" alt="${c.name}" onerror="this.style.display='none'">`
+        : '';
+
+      const marker = L.marker([c.lat, c.lon], { icon: pinIcon });
+
+      marker.bindPopup(function() {
+        const t = T[lang] || T.en;
+        const latStr = c.lat >= 0 ? c.lat.toFixed(6) + '°N' : Math.abs(c.lat).toFixed(6) + '°S';
+        const lonStr = c.lon >= 0 ? c.lon.toFixed(6) + '°E' : Math.abs(c.lon).toFixed(6) + '°W';
+        return `<div class="map-popup">
+          ${flagImg}
+          <div class="pop-name">${c.name}</div>
+          <div class="pop-coords">${latStr}, ${lonStr}</div>
+          <a class="pop-btn" href="countries/right-in-the-middle-of-${c.slug}.html">
+            ${t.openPage} →
+          </a>
+        </div>`;
+      }, { maxWidth: 220 });
+
+      // Single click = navigate directly
+      marker.on('click', function() {
+        window.location.href = 'countries/right-in-the-middle-of-' + c.slug + '.html';
+      });
+
+      // Right-click / long-press = show popup
+      marker.on('contextmenu', function(e) {
+        e.originalEvent.preventDefault();
+        marker.openPopup();
+      });
+
+      marker.addTo(map);
+      markers.push({ data: c, marker: marker, iso: iso });
+    });
+
+    /* ---- Search ---- */
+    const searchInput = document.getElementById('map-search');
+    const searchResults = document.getElementById('map-search-results');
+
+    function doSearch(q) {
+      q = q.trim().toLowerCase();
+      searchResults.innerHTML = '';
+      if (q.length < 1) { searchResults.style.display = 'none'; return; }
+
+      const hits = markers.filter(m =>
+        m.data.name.toLowerCase().includes(q) ||
+        m.data.slug.includes(q.replace(/\s+/g,'-'))
+      ).slice(0, 10);
+
+      if (hits.length === 0) { searchResults.style.display = 'none'; return; }
+
+      hits.forEach(function(m) {
+        const item = document.createElement('div');
+        item.className = 'sr-item';
+        const flagSrc = m.iso ? `assets/flags/${m.iso}.svg` : '';
+        item.innerHTML = flagSrc
+          ? `<img src="${flagSrc}" alt="${m.data.name}" onerror="this.style.display='none'"> ${m.data.name}`
+          : m.data.name;
+        item.addEventListener('click', function() {
+          searchResults.style.display = 'none';
+          searchInput.value = m.data.name;
+          map.setView([m.data.lat, m.data.lon], 5, { animate: true });
+          m.marker.openPopup();
+        });
+        searchResults.appendChild(item);
+      });
+      searchResults.style.display = 'block';
+    }
+
+    searchInput.addEventListener('input', function() { doSearch(this.value); });
+    document.getElementById('map-search-btn').addEventListener('click', function() { doSearch(searchInput.value); });
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('#map-search-wrap') && !e.target.closest('#map-search-results')) {
+        searchResults.style.display = 'none';
+      }
+    });
+    searchInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') { searchResults.style.display = 'none'; }
+      if (e.key === 'Enter') { doSearch(this.value); }
+    });
+
+    // Apply initial language
+    applyLang(lang);
+  })
+  .catch(function(err) {
+    console.error('Failed to load coordinates:', err);
+    document.getElementById('leaflet-map').innerHTML =
+      '<p style="padding:40px;text-align:center;color:red;">Could not load map data. Please check the console.</p>';
+  });
+</script>
+
+</body>
+</html>
