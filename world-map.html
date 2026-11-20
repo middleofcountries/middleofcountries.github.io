@@ -374,19 +374,18 @@ fetch('assets/js/countries_coordinates.json')
     });
     window._leafletMap = map;
 
+    // OpenStreetMap — free, no API key
+    const tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      subdomains: 'abc',
+      maxZoom: 19
+    }).addTo(map);
+
+    // Dark mode: invert tiles via CSS filter
     if (isDark) {
-      // Stadia Alidade Smooth Dark — no key required
-      L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
-        attribution: '© <a href="https://stadiamaps.com/">Stadia Maps</a> © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-        maxZoom: 19
-      }).addTo(map);
-    } else {
-      // OpenStreetMap standard — completely free, no key
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        subdomains: 'abc',
-        maxZoom: 19
-      }).addTo(map);
+      const style = document.createElement('style');
+      style.textContent = '.leaflet-tile { filter: invert(1) hue-rotate(180deg) brightness(0.85) contrast(0.9); }';
+      document.head.appendChild(style);
     }
 
     // Custom pin icon
